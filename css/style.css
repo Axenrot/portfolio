@@ -1,0 +1,222 @@
+*{
+    margin: 0px;
+}
+
+body,html{
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: black;
+    background: linear-gradient(90deg, black,rgb(94, 92, 92)) no-repeat;
+}
+
+/*-------------bandeiras-------------*/
+.langbox{
+    margin-right: 2vw;
+    float: right;
+}
+.langbox li{
+    margin: 10px 5px;
+    float: right;
+    display: inline;
+}
+.langbox img{
+    height: 13px;
+}/*----------------------------*/
+
+/*-------------menu principal-------------*/
+.section{
+    align-self: center;
+    float: left;
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    max-height: 100%;
+}
+
+    /* coluna 1*/
+    #col1{
+        display: flex;
+        align-items: center;
+        float: left;
+        width: 49%;
+        height: 100%;
+        margin: 0px;
+    }
+
+    .menu{
+        display: flex;
+        height: 50%;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 2;
+        list-style: none;
+
+    }
+    .menu li{
+        z-index: 2;
+    }
+    .menu a{
+        z-index: 2;
+        text-decoration: none;
+        color: white;
+        font-family: "Sublima", sans-serif;
+    }
+
+    /* coluna 2*/
+    #col2{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        float: right;
+        width: 49%;
+        height: 100%;
+    }
+
+    #col2 .picture{
+        border: 10px solid rgb(255, 255, 255);
+        width: 40vh;
+        height: 40vh;
+        border-radius: 50%;
+        background-image: url("../img/profile.png");
+        background-size: cover;
+        background-position: center;
+    }
+
+    #col2 .text{
+        margin-top: 2vh;
+        color: white;
+        text-align: center;
+        width: 100%;
+        font: 2.5vh "Sublima", sans-serif;
+    }
+
+/*---------------------------------------*/
+
+/* Footer */
+@keyframes anim {
+    from {background-position-x: 0%;}
+    to {background-position-x: 100%;}
+}
+
+#footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 7% ;
+    background: url("../img/wave.png") repeat-x bottom;
+    background-size: 33.5%;
+    opacity: 0.9;
+    animation: anim 10s linear infinite;
+
+
+}
+
+#footer p{
+    color: white;
+    font: 1vh "Sublima", sans-serif;
+    text-align: center;
+}
+/*---------------------------------------*/
+
+.clear{
+    clear: both;
+}
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) {
+    .menu a{
+        font-size: 8vh;
+    }
+    #col1, #col2{
+        justify-content: center;
+        width: 100%;
+    }
+    #col1{
+        height: 40%;
+    }
+    #col2{
+        padding-left: 5px;
+        height: 55%;
+    }
+
+    .menu{
+        text-align: center;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+	.menu a{
+        font-size: 11vw; 
+    }
+    
+
+    #col2 .picture{
+        width: 25vh;
+        height: 25vh;
+    }
+}
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
+	.menu a{
+        font-size: 10vw; 
+    }
+    #col2 .picture{
+        width: 30vh;
+        height: 30vh;
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+	.menu a{
+        font-size: 10vw; 
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+	.menu a{
+        font-size: 10em; 
+    }
+    .section{
+        margin-right: 5vw;
+    }
+    
+}
+
+@font-face {
+    font-family: "Azonix";
+    src: url("../fonts/azonix.woff");
+}
+
+@font-face {
+    font-family: "Nasalization";
+    src: url("../fonts/nasalization.woff");
+}
+
+@font-face {
+    font-family: "dDiam";
+    src: url("../fonts/dDiam.woff");
+}
+
+@font-face {
+    font-family: "Retroica";
+    src: url("../fonts/retroica.woff");
+}
+
+@font-face {
+    font-family: "Sublima";
+    src: url("../fonts/sublima.woff");
+}
