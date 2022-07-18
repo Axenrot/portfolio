@@ -114,14 +114,14 @@ function menuclick(event){
     contact.classList.add("halfed")
     picture.classList.add("halfed")
     gsap.to(col2,{y:-40, duration:2})
-    if (window.visualViewport.height > 900){
+    if (window.visualViewport.height > 700){
         gsap.to(section2, {bottom:"-52vh"})
         gsap.to(waves, {bottom:"30vh"})
         gsap.to(col1, {height: "50%"})
         gsap.to(col2, {height: "50%"})
         gsap.to(menuarray, {y:-40, duration:2})
     }
-    if (window.visualViewport.height <= 900){
+    if (window.visualViewport.height <= 700){
         col1.querySelector(".menu").style = "flex-direction: row; width: 100vh;"
         console.log(window.screen.height)
         gsap.to(section2, {bottom:"-30vh"})
