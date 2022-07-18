@@ -1,7 +1,3 @@
-*{
-    margin: 0px;
-}
-
 body,html{
     height: 100%;
     width: 100%;
@@ -36,37 +32,40 @@ body {
     width: 100%;
     height: 100%;
     max-width: 1200px;
-    max-height: 100%;
 }
 
     /* coluna 1*/
     #col1{
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         float: left;
         width: 49%;
-        height: 100%;
-        margin: 0px;
+        height: calc(100vh - 33px);;
     }
 
     .menu{
+        padding: 0 5vh;
         display: flex;
-        height: 50%;
+        height: 60%;
         flex-direction: column;
         justify-content: space-between;
-        z-index: 2;
         list-style: none;
 
     }
     .menu li{
-        z-index: 2;
-    }
-    .menu a{
-        z-index: 2;
+        cursor: pointer;
         text-decoration: none;
         color: white;
         font-family: "Sublima", sans-serif;
+        -webkit-touch-callout: none;  /* iPhone OS, Safari */
+        -webkit-user-select: none;    /* Chrome, Safari 3 */
+        -khtml-user-select: none;     /* Safari 2 */
+        -moz-user-select: none;       /* Firefox */
+        -ms-user-select: none;        /* IE10+ */
+        user-select: none;
     }
+
 
     /* coluna 2*/
     #col2{
@@ -76,7 +75,7 @@ body {
         align-items: center;
         float: right;
         width: 49%;
-        height: 100%;
+        height: calc(100% - 33px);
     }
 
     #col2 .picture{
@@ -95,48 +94,242 @@ body {
         text-align: center;
         width: 100%;
         font: 2.5vh "Sublima", sans-serif;
+        -webkit-touch-callout: none;  /* iPhone OS, Safari */
+        -webkit-user-select: none;    /* Chrome, Safari 3 */
+        -khtml-user-select: none;     /* Safari 2 */
+        -moz-user-select: none;       /* Firefox */
+        -ms-user-select: none;        /* IE10+ */
+        user-select: none;
     }
 
 /*---------------------------------------*/
 
 /* Footer */
 @keyframes anim {
-    from {background-position-x: 0%;}
-    to {background-position-x: 100%;}
+    from {background-position-x: 0;}
+    to {background-position-x: 426px;}
 }
 
-#footer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
+#wave, #wave2, #wave3{
+    display: block;
+    position: absolute;
+    bottom: -15vh;
     width: 100%;
-    height: 7% ;
+    height: 200px;
+    background-size:contain!important;
     background: url("../img/wave.png") repeat-x bottom;
-    background-size: 33.5%;
-    opacity: 0.9;
+    animation: anim 5s linear infinite;
+}
+#wave2{
+    animation: anim 15s linear reverse infinite;
+    opacity: 0.5;
+}
+#wave3{
     animation: anim 10s linear infinite;
+    opacity: 0.7;
+}
 
-
+#tapscreen{
+    font-family: "Sublima";
+    display:none;
 }
 
 #footer p{
-    color: white;
-    font: 1vh "Sublima", sans-serif;
     text-align: center;
+}
+footer{
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
 }
 /*---------------------------------------*/
 
+/* SECTION 2*/
+section#section2{
+    position: absolute;
+    z-index: 2;
+    padding: 2vh 5vh;
+    bottom: -100vh;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    font-family: "Sublima Light";
+    font-weight: 600;
+}
+
+#section2 .container{
+    max-width: 1200px;
+    margin:0 auto
+}
+#section2 .container p{
+    line-height: 1.5em;
+    -webkit-touch-callout: none;  /* iPhone OS, Safari */
+    -webkit-user-select: none;    /* Chrome, Safari 3 */
+    -khtml-user-select: none;     /* Safari 2 */
+    -moz-user-select: none;       /* Firefox */
+    -ms-user-select: none;        /* IE10+ */
+    user-select: none;
+}
+.container h1{
+    font: 3vh "Sublima", sans-serif;
+    -webkit-touch-callout: none;  /* iPhone OS, Safari */
+    -webkit-user-select: none;    /* Chrome, Safari 3 */
+    -khtml-user-select: none;     /* Safari 2 */
+    -moz-user-select: none;       /* Firefox */
+    -ms-user-select: none;        /* IE10+ */
+    user-select: none;
+    
+}
+#section2 .about, .work, .contact{
+    display: none;
+}
+
+/* ---------- ABOUT AREA ------------  */
 .clear{
     clear: both;
 }
 
+#icons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4vh;
+
+}
+#icons div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 8vw;
+}
+#icons img{
+    height: 6vw;
+}
+#icons h5{
+    cursor: default;
+    opacity: 0;
+    margin-top: 1vh;
+    text-align: center;
+    font: bold 3vw "Sublima Light", sans-serif;
+}
+
+/*SECTION 2 WORK SIDE SCROLLING*/
+#sidescrolling {
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    flex-direction:row;    
+}
+
+.module{
+    width: 20vw;
+    height: 15vw;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: 5px;
+    margin: 1vw;
+    background: rgba(0, 0, 0, 0.829);
+}
+.module a{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: black;
+    text-transform: uppercase;
+}
+.module img{
+    width:100%;
+    opacity: 0.7;
+}
+.module h5{
+    text-align: center;
+    align-self: center;
+    color: white;
+    padding: 2px 0 4px 0;
+}
+/* ---  CONTACT AREA ---*/
+#section2 form{
+    float: left;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 40vh;
+}
+#section2 form input, #section2 form textarea{
+    border: none;
+    background-color: grey;
+    margin: 5px 0;
+    padding: 8px 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+#section2 input#submit{
+    background-image: linear-gradient(0deg, rgb(48, 47, 47), rgb(107, 107, 107));
+}
+#section2 input#submit:hover{
+    transition: background-image 2s;
+    background-image: linear-gradient(180deg, rgb(48, 47, 47), rgb(107, 107, 107));
+}
+
+#section2 form textarea{
+    height: 10vh;
+}
+
+#section2 form input::placeholder, #section2 form textarea::placeholder{
+    color: azure;
+}
+#section2 form input:focus, #section2 form textarea:focus{
+    outline-color: rgb(58, 58, 58);
+    background-color: rgb(88, 88, 88);
+    
+}
+
+
+#section2 #social{
+    float: right;
+}
+#social a{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    color: black;
+}
+#social p{
+    margin-right: 10px;
+    display: none;
+    opacity: 0;
+}
+#social img{
+    opacity: 0.8;
+    height: 7vh;
+}
+/*------------------------------*/
+
+/* --------------MEDIA QUERIES-----------------*/
+/* Touchscreen only */
+@media (hover: none) {
+    footer #tapscreen{
+        position: absolute;
+        bottom: 1vh;
+        color: rgb(29, 29, 29);
+        display: block;
+    }
+}
 /* Extra small devices (portrait phones, less than 576px)*/
 @media (max-width: 575.98px) {
-    .menu a{
+    
+    .menu li{
         font-size: 8vh;
+
     }
+    .menu li.halfed{
+        align-self: center;
+        font-size: 6vw;
+    }
+
     #col1, #col2{
         justify-content: center;
         width: 100%;
@@ -146,74 +339,103 @@ body {
     }
     #col2{
         padding-left: 5px;
-        height: 55%;
+        height: 50%;
+    }
+    #col2 .halfed{
+        display:none
     }
 
     .menu{
         text-align: center;
     }
+    .module h5{
+        font-size: 2vw;
+    }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-	.menu a{
-        font-size: 11vw; 
+	.menu li{
+        font-size: 13vw; 
     }
-    
+    .menu li.halfed{
+        font-size: 7vh;
+    }
 
     #col2 .picture{
         width: 25vh;
         height: 25vh;
     }
+    #icons h5{
+        font-size: 2.5vw;
+    }
+    .module h5{
+        font-size: 2vw;
+    }
 }
 
 /* Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) and (max-width: 991.98px) {
-	.menu a{
-        font-size: 10vw; 
+	.menu li{
+        font-size: 13vw; 
     }
+    .menu li.halfed{
+        font-size: 7vh;
+    }
+
     #col2 .picture{
         width: 30vh;
         height: 30vh;
+    }
+    #icons h5{
+        font-size: 2vw;
     }
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) and (max-width: 1199.98px) {
-	.menu a{
-        font-size: 10vw; 
+	.menu li{
+        font-size: 12vh; 
+    }
+    .menu li.halfed{
+        font-size: 7vh;
+    }
+    #col2 div.halfed{
+        width: 30vh;
+        height: 30vh;
+    }
+    #icons h5{
+        font-size: 2vw;
     }
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
-	.menu a{
-        font-size: 10em; 
+	.menu li{
+        font-size: 9em; 
+    }
+    .menu li.halfed{
+        font-size: 5em;
     }
     .section{
-        margin-right: 5vw;
+        margin-right: 1vw;
     }
-    
+    #col2 .halfed{
+        width: 30vh;
+        height: 30vh;
+    }
+    #icons h5{
+        font-size: 1.5vw;
+    }
+    .module{
+        width: 15em;
+        height: 11.25em;
+    }
 }
 
 @font-face {
-    font-family: "Azonix";
-    src: url("../fonts/azonix.woff");
-}
-
-@font-face {
-    font-family: "Nasalization";
-    src: url("../fonts/nasalization.woff");
-}
-
-@font-face {
-    font-family: "dDiam";
-    src: url("../fonts/dDiam.woff");
-}
-
-@font-face {
-    font-family: "Retroica";
-    src: url("../fonts/retroica.woff");
+    font-family: "Sublima Light";
+    src: url("../fonts/sublima-light.woff");
 }
 
 @font-face {
