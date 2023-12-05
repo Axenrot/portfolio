@@ -1,7 +1,7 @@
 import React from "react";
 import { useGLTF } from "@react-three/drei";
 
-export default function Room({ desktopRef, shelfRef, frameRef, ...props }) {
+export default function Room({ ...props }) {
   const { nodes, materials } = useGLTF("/models/room.glb");
   return (
     <group {...props} dispose={null}>
@@ -27,7 +27,6 @@ export default function Room({ desktopRef, shelfRef, frameRef, ...props }) {
         material={materials.fireRed_material}
       />
       <mesh
-        ref={desktopRef}
         castShadow
         receiveShadow
         geometry={nodes.table_fireRed_material_0.geometry}
@@ -76,7 +75,6 @@ export default function Room({ desktopRef, shelfRef, frameRef, ...props }) {
         material={materials.fireRed_material}
       />
       <mesh
-        ref={shelfRef}
         castShadow
         receiveShadow
         geometry={nodes.bookShelf_fireRed_material_0.geometry}
@@ -101,7 +99,6 @@ export default function Room({ desktopRef, shelfRef, frameRef, ...props }) {
         material={materials.fireRed_material}
       />
       <mesh
-        ref={frameRef}
         castShadow
         receiveShadow
         geometry={nodes.wall_picture_fireRed_material_0.geometry}
