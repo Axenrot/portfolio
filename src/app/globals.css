@@ -25,3 +25,23 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@keyframes fadeIn {
+  0% {
+    scale: 10%;
+    opacity: 0;
+  }
+
+  50% {
+    scale: 120%;
+  }
+
+  100% {
+    scale: 100%;
+    opacity: 100%;
+  }
+}
+
+.fadein {
+  animation: fadeIn 0.2s ease-in;
+}
