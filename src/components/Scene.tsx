@@ -9,23 +9,35 @@ import Button from "./Button";
 import Popup from "./Popup";
 
 import Pokedex from "../models/Pokedex";
+import Menu from "./Menu";
+import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
 
 const Scene = () => {
   const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
 
-  const camera = new THREE.Camera();
+  const isCooldown = useRef(false);
+  const menuOption = useRef("");
 
-  // useEffect(() => {
-  // if(camera.position)  {
-  //   camera.position = cameraPosition
-  // }
-  // }, []);
+  const toggleOpenPokedex = useCallback(() => {
+    if (!isCooldown.current) {
+      setOpenPokedex((prevOpenPokedex) => !prevOpenPokedex);
+      isCooldown.current = true;
+
+      setTimeout(() => {
+        isCooldown.current = false;
+      }, 1000); // Set the cooldown duration in milliseconds
+    }
+  }, [isCooldown]);
 
   return (
     <span className="w-full h-screen">
       <Popup selectedOption={hoveredBtn} />
+      <Menu
+        selectOption={(value) => (menuOption.current = value)}
+        hoveredItem={hoveredBtn}
+      />
       <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
         <Suspense fallback={<Load />}>
           {Object.entries(buttons).map((item) => {
@@ -56,7 +68,7 @@ const Scene = () => {
           <Pokedex
             opened={openPokedex}
             position={pokedexPosition}
-            onClick={() => setOpenPokedex(!openPokedex)}
+            onClick={() => toggleOpenPokedex()}
             rotation={[0, 0.2, 0]}
             scale={[2, 2, 2]}
           />

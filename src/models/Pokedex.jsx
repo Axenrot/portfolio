@@ -6,11 +6,31 @@ Source: https://sketchfab.com/3d-models/pokedex-pixel-art-dd9e8c05b168495998d83a
 Title: Pokedex Pixel art
 */
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
 import { useGLTF } from "@react-three/drei";
 
 export default function Pokedex({ opened, ...props }) {
   const { nodes, materials } = useGLTF("/models/pokedex.glb");
+  const pokedexScreen = useRef();
+
+  useEffect(() => {
+    function triggerAnimation() {
+      gsap.fromTo(
+        pokedexScreen.current.rotation,
+        {
+          x: opened ? Math.PI : Math.PI / 6,
+        },
+        {
+          x: opened ? Math.PI / 6 : Math.PI,
+          duration: 0.5,
+          ease: "power4.in",
+        }
+      );
+    }
+    triggerAnimation();
+  }, [opened]);
+
   return (
     <group {...props} dispose={null}>
       <group position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -26,7 +46,10 @@ export default function Pokedex({ opened, ...props }) {
           geometry={nodes.Object_5.geometry}
           material={materials.outline}
         />
-        <group rotation={[opened ? Math.PI / 6 : Math.PI, 0, 0]}>
+        <group
+          ref={pokedexScreen}
+          rotation={[opened ? Math.PI / 6 : Math.PI, 0, 0]}
+        >
           <mesh
             castShadow
             receiveShadow
