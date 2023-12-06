@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
 import Load from "./Load";
 import Room from "../models/Room";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import Button from "./Button";
 import Popup from "./Popup";
 
@@ -12,10 +12,15 @@ import Pokedex from "../models/Pokedex";
 import Menu from "./Menu";
 import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
+import gsap from "gsap";
+import { lookAt, lookAtControl } from "@/utils/cameraMovement";
 
 const Scene = () => {
+  // const [disableOrbitControl, setDisableOrbitControl] = useState(false);
   const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const controlRef = useRef<any>();
 
   const isCooldown = useRef(false);
   const menuOption = useRef("");
@@ -48,7 +53,13 @@ const Scene = () => {
               <Button
                 key={`btn-${text}`}
                 placeholder={icon}
-                fn={fn}
+                onClick={() => {
+                  // setDisableOrbitControl(true);
+                  lookAtControl(controlRef.current, pos);
+                  // setTimeout(() => {
+                  //   setDisableOrbitControl(false);
+                  // }, 2000);
+                }}
                 position={pos}
                 onMouseEnter={() => {
                   setHoveredBtn(text);
@@ -59,8 +70,13 @@ const Scene = () => {
               />
             );
           })}
+          {/* <PerspectiveCamera makeDefault ref={cameraRef} position={[0, 2, 4]} /> */}
 
-          <OrbitControls />
+          <OrbitControls
+            ref={controlRef}
+            maxAzimuthAngle={Math.PI / 8}
+            maxPolarAngle={Math.PI / 2}
+          />
           <ambientLight intensity={0.7} />
           <directionalLight intensity={2.5} />
           {/* <pointLight /> */}
