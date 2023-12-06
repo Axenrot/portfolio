@@ -4,28 +4,45 @@ import { Suspense, useEffect, useState } from "react";
 import * as THREE from "three";
 import Load from "./Load";
 import Room from "../models/Room";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import Button from "./Button";
 import Popup from "./Popup";
 
 import Pokedex from "../models/Pokedex";
+import Menu from "./Menu";
+import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
+import gsap from "gsap";
+import { lookAt, lookAtControl } from "@/utils/cameraMovement";
 
 const Scene = () => {
+  // const [disableOrbitControl, setDisableOrbitControl] = useState(false);
   const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const controlRef = useRef<any>();
 
-  const camera = new THREE.Camera();
+  const isCooldown = useRef(false);
+  const menuOption = useRef("");
 
-  // useEffect(() => {
-  // if(camera.position)  {
-  //   camera.position = cameraPosition
-  // }
-  // }, []);
+  const toggleOpenPokedex = useCallback(() => {
+    if (!isCooldown.current) {
+      setOpenPokedex((prevOpenPokedex) => !prevOpenPokedex);
+      isCooldown.current = true;
+
+      setTimeout(() => {
+        isCooldown.current = false;
+      }, 1000); // Set the cooldown duration in milliseconds
+    }
+  }, [isCooldown]);
 
   return (
     <span className="w-full h-screen">
       <Popup selectedOption={hoveredBtn} />
+      <Menu
+        selectOption={(value) => (menuOption.current = value)}
+        hoveredItem={hoveredBtn}
+      />
       <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
         <Suspense fallback={<Load />}>
           {Object.entries(buttons).map((item) => {
@@ -36,7 +53,13 @@ const Scene = () => {
               <Button
                 key={`btn-${text}`}
                 placeholder={icon}
-                fn={fn}
+                onClick={() => {
+                  // setDisableOrbitControl(true);
+                  lookAtControl(controlRef.current, pos);
+                  // setTimeout(() => {
+                  //   setDisableOrbitControl(false);
+                  // }, 2000);
+                }}
                 position={pos}
                 onMouseEnter={() => {
                   setHoveredBtn(text);
@@ -47,8 +70,13 @@ const Scene = () => {
               />
             );
           })}
+          {/* <PerspectiveCamera makeDefault ref={cameraRef} position={[0, 2, 4]} /> */}
 
-          <OrbitControls />
+          <OrbitControls
+            ref={controlRef}
+            maxAzimuthAngle={Math.PI / 8}
+            maxPolarAngle={Math.PI / 2}
+          />
           <ambientLight intensity={0.7} />
           <directionalLight intensity={2.5} />
           {/* <pointLight /> */}
@@ -56,7 +84,7 @@ const Scene = () => {
           <Pokedex
             opened={openPokedex}
             position={pokedexPosition}
-            onClick={() => setOpenPokedex(!openPokedex)}
+            onClick={() => toggleOpenPokedex()}
             rotation={[0, 0.2, 0]}
             scale={[2, 2, 2]}
           />
