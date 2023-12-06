@@ -7,17 +7,13 @@ import Room from "../models/Room";
 import { OrbitControls } from "@react-three/drei";
 import Button from "./Button";
 import Popup from "./Popup";
-import { FileCode, FileJs, FilePdf, At } from "@phosphor-icons/react/dist/ssr";
-import PokedexClosed from "../models/PokedexClosed";
+
+import Pokedex from "../models/Pokedex";
+import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
 
 const Scene = () => {
   const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
-  const desktopPosition = new THREE.Vector3(-2.7, 0.85, -1.3);
-  const shelfPosition = new THREE.Vector3(-0.55, 0.8, -1.3);
-  const framePosition = new THREE.Vector3(3.2, 0.78, -1.75);
-  const cameraPosition = new THREE.Vector3(0, 1.3, 3);
-  const pokedexPosition = new THREE.Vector3(-1.45, 0.72, -1.5);
-  const pokedexBtnPosition = new THREE.Vector3(-1.55, 0.95, -1.5);
+  const [openPokedex, setOpenPokedex] = useState<boolean>(false);
 
   const camera = new THREE.Camera();
 
@@ -32,58 +28,35 @@ const Scene = () => {
       <Popup selectedOption={hoveredBtn} />
       <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
         <Suspense fallback={<Load />}>
-          <Button
-            placeholder={<FileJs size={20} weight="bold" />}
-            fn={() => console.log(desktopPosition)}
-            position={desktopPosition}
-            onMouseEnter={() => {
-              setHoveredBtn("desktop");
-            }}
-            onMouseLeave={() => {
-              setHoveredBtn(null);
-            }}
-          />
-          <Button
-            placeholder={<At size={20} weight="bold" />}
-            fn={() => console.log(pokedexBtnPosition)}
-            position={pokedexBtnPosition}
-            onMouseEnter={() => {
-              setHoveredBtn("pokedex");
-            }}
-            onMouseLeave={() => {
-              setHoveredBtn(null);
-            }}
-          />
-          <Button
-            placeholder={<FileCode size={20} weight="bold" />}
-            fn={() => console.log(shelfPosition)}
-            position={shelfPosition}
-            onMouseEnter={() => {
-              setHoveredBtn("shelf");
-            }}
-            onMouseLeave={() => {
-              setHoveredBtn(null);
-            }}
-          />
-          <Button
-            placeholder={<FilePdf size={20} weight="bold" />}
-            fn={() => console.log(framePosition)}
-            position={framePosition}
-            onMouseEnter={() => {
-              setHoveredBtn("frame");
-            }}
-            onMouseLeave={() => {
-              setHoveredBtn(null);
-            }}
-          />
+          {Object.entries(buttons).map((item) => {
+            let text = item[0];
+            let { fn, pos, icon } = item[1];
+
+            return (
+              <Button
+                key={`btn-${text}`}
+                placeholder={icon}
+                fn={fn}
+                position={pos}
+                onMouseEnter={() => {
+                  setHoveredBtn(text);
+                }}
+                onMouseLeave={() => {
+                  setHoveredBtn(null);
+                }}
+              />
+            );
+          })}
 
           <OrbitControls />
           <ambientLight intensity={0.7} />
-          <directionalLight intensity={2} />
+          <directionalLight intensity={2.5} />
           {/* <pointLight /> */}
           {/* <hemisphereLight /> */}
-          <PokedexClosed
+          <Pokedex
+            opened={openPokedex}
             position={pokedexPosition}
+            onClick={() => setOpenPokedex(!openPokedex)}
             rotation={[0, 0.2, 0]}
             scale={[2, 2, 2]}
           />

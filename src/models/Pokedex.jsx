@@ -9,7 +9,7 @@ Title: Pokedex Pixel art
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
-export default function PokedexClosed(props) {
+export default function Pokedex({ opened, ...props }) {
   const { nodes, materials } = useGLTF("/models/pokedex.glb");
   return (
     <group {...props} dispose={null}>
@@ -17,56 +17,62 @@ export default function PokedexClosed(props) {
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Object_34.geometry}
+          geometry={nodes.Object_4.geometry}
           material={materials.pokedex}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Object_35.geometry}
+          geometry={nodes.Object_5.geometry}
           material={materials.outline}
         />
-        <group rotation={[-Math.PI, 0, 0]}>
+        <group rotation={[opened ? Math.PI / 6 : Math.PI, 0, 0]}>
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_37.geometry}
+            geometry={nodes.Object_7.geometry}
             material={materials.pokedex}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_38.geometry}
+            geometry={nodes.Object_8.geometry}
             material={materials.outline}
           />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Object_40.geometry}
-            material={materials.pokedex}
-            position={[0, 0.057, -0.004]}
-            rotation={[Math.PI, 0, 0]}
-          />
+          <group position={[0, 0.057, -0.004]} rotation={[Math.PI, 0, 0]}>
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.Object_10.geometry}
+              material={materials.pokedex}
+            />
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes.Object_11.geometry}
+              material={materials.outline}
+            />
+          </group>
         </group>
         <group position={[-0.053, -0.052, -0.003]} rotation={[0, 0, 0.002]}>
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_43.geometry}
+            geometry={nodes.Object_14.geometry}
             material={materials["gastle-aura"]}
             position={[0, -0.008, 0]}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_45.geometry}
+            geometry={nodes.Object_16.geometry}
             material={materials.pokedex}
             position={[0, -0.008, 0]}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_47.geometry}
+            geometry={nodes.Object_18.geometry}
             material={materials.pokedex}
             position={[0, -0.008, 0]}
           />
@@ -75,13 +81,13 @@ export default function PokedexClosed(props) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_49.geometry}
+            geometry={nodes.Object_23.geometry}
             material={materials.pokedex}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_50.geometry}
+            geometry={nodes.Object_24.geometry}
             material={materials.outline}
           />
         </group>
@@ -89,13 +95,13 @@ export default function PokedexClosed(props) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_55.geometry}
+            geometry={nodes.Object_26.geometry}
             material={materials.pokedex}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_56.geometry}
+            geometry={nodes.Object_27.geometry}
             material={materials.outline}
           />
         </group>
@@ -103,32 +109,32 @@ export default function PokedexClosed(props) {
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_58.geometry}
+            geometry={nodes.Object_29.geometry}
             material={materials.pokedex}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={nodes.Object_59.geometry}
+            geometry={nodes.Object_30.geometry}
             material={materials.outline}
           />
         </group>
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Object_52.geometry}
+          geometry={nodes.Object_20.geometry}
           material={materials.pokedex}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Object_53.geometry}
+          geometry={nodes.Object_21.geometry}
           material={materials.outline}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Object_61.geometry}
+          geometry={nodes.Object_32.geometry}
           material={materials.pokedex}
           position={[-0.031, -0.014, -0.01]}
           rotation={[0, 0, -0.779]}
