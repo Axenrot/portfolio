@@ -12,6 +12,7 @@ import Menu from "./Menu";
 import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
 import { lookAtControl } from "@/utils/cameraMovement";
+import { playSound } from "@/utils/playSound";
 
 const Scene = () => {
   const [currentOption, setCurrentOption] = useState<string | null>("home");
@@ -60,6 +61,7 @@ const Scene = () => {
           ? currentOptionInButtons[1].pos
           : cameraPosition;
 
+      playSound("/assets/btn.wav");
       lookAtControl(controlRef.current, target);
     }
   }, [currentOption]);

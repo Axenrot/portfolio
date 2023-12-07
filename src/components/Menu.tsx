@@ -6,8 +6,16 @@ interface IPopup {
   setCurrentOption: (value: string) => void;
   currentOption: string | null;
 }
-const Popup = ({ setCurrentOption, currentOption }: IPopup) => {
+const Popup = ({ currentOption, setCurrentOption }: IPopup) => {
   const [selectedOption, setSelectedOption] = useState<number>(0);
+
+  useEffect(() => {
+    Object.keys(buttons).forEach((key, index) => {
+      if (currentOption == key) {
+        setSelectedOption(index);
+      }
+    });
+  }, [currentOption]);
 
   function back() {
     if (selectedOption >= 1) {
