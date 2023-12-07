@@ -1,10 +1,9 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useState } from "react";
-import * as THREE from "three";
 import Load from "./Load";
 import Room from "../models/Room";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import Button from "./Button";
 import Dialog from "./Dialog";
 
@@ -12,11 +11,9 @@ import Pokedex from "../models/Pokedex";
 import Menu from "./Menu";
 import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
-import gsap from "gsap";
-import { lookAt, lookAtCD, lookAtControl } from "@/utils/cameraMovement";
+import { lookAtControl } from "@/utils/cameraMovement";
 
 const Scene = () => {
-  // const [disableOrbitControl, setDisableOrbitControl] = useState(false);
   const [currentOption, setCurrentOption] = useState<string | null>("home");
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
   const controlRef = useRef<any>();
