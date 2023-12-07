@@ -14,21 +14,19 @@ const Dialog = ({ currentOption }: IDialog) => {
     >
       <div className="text-neutral-900 h-full w-full bg-white/90 border-blue-200 border-[3px] flex flex-col gap-3 p-6 rounded-3xl">
         <h1 className="text-md lg:text-xl capitalize font-bold">{title}</h1>
-        <p className="lg:text-lg font-base text-sm h-full overflow-y-auto">
-          <span className="flex">
-            {dialog.map((diag, index) => {
-              return (
-                <p
-                  data-display={index == currentDialog}
-                  key={`label-${index}`}
-                  className="data-[display=false]:hidden fadein"
-                >
-                  {diag}
-                </p>
-              );
-            })}
-          </span>
-        </p>
+        <span className="flex lg:text-lg font-base text-sm h-full overflow-y-auto">
+          {dialog.map((diag, index) => {
+            return (
+              <p
+                data-display={index == currentDialog}
+                key={`label-${index}`}
+                className="data-[display=false]:hidden fadein"
+              >
+                {diag}
+              </p>
+            );
+          })}
+        </span>
       </div>
     </span>
   );
