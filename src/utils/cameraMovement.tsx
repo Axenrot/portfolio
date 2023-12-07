@@ -42,10 +42,9 @@ export function lookAtControl(controlsRef: any, pos: THREE.Vector3) {
 
   gsap.to(controlsRef.object.position, {
     duration: 1,
-    x: pos.x / 2,
+    x: pos.x / 4,
     y: pos.y + 0.5,
-    z: 1.5,
-    w: 1,
+    z: 2,
     ease: "power2.inOut",
   });
 
@@ -54,7 +53,6 @@ export function lookAtControl(controlsRef: any, pos: THREE.Vector3) {
     x: quaternion.x - 0.2,
     y: quaternion.y,
     z: quaternion.z,
-    w: quaternion.w,
     ease: "power2.inOut",
   });
 }
