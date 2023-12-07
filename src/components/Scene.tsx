@@ -6,24 +6,38 @@ import Load from "./Load";
 import Room from "../models/Room";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import Button from "./Button";
-import Popup from "./Popup";
+import Dialog from "./Dialog";
 
 import Pokedex from "../models/Pokedex";
 import Menu from "./Menu";
 import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
 import gsap from "gsap";
-import { lookAt, lookAtControl } from "@/utils/cameraMovement";
+import { lookAt, lookAtCD, lookAtControl } from "@/utils/cameraMovement";
 
 const Scene = () => {
   // const [disableOrbitControl, setDisableOrbitControl] = useState(false);
-  const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
+  const [currentOption, setCurrentOption] = useState<string | null>("home");
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
-  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   const controlRef = useRef<any>();
 
   const isCooldown = useRef(false);
-  const menuOption = useRef("");
+
+  const setOptionCD = useCallback(
+    (option: string) => {
+      if (!isCooldown.current) {
+        setCurrentOption(null);
+
+        setTimeout(() => setCurrentOption(option), 200);
+        isCooldown.current = true;
+
+        setTimeout(() => {
+          isCooldown.current = false;
+        }, 500); // Set the cooldown duration in milliseconds
+      }
+    },
+    [isCooldown]
+  );
 
   const toggleOpenPokedex = useCallback(() => {
     if (!isCooldown.current) {
@@ -36,36 +50,43 @@ const Scene = () => {
     }
   }, [isCooldown]);
 
+  useEffect(() => {
+    //  Look at the current option when it changes
+    if (currentOption != null && typeof currentOption == "string") {
+      let currentOptionInButtons = Object.entries(buttons).find((btn) => {
+        if (btn[0] == currentOption) {
+          return btn;
+        }
+      });
+      let target =
+        currentOptionInButtons?.length == 2
+          ? currentOptionInButtons[1].pos
+          : cameraPosition;
+
+      lookAtControl(controlRef.current, target);
+    }
+  }, [currentOption]);
+
   return (
     <span className="w-full h-screen">
-      <Popup selectedOption={hoveredBtn} />
+      {currentOption && <Dialog currentOption={currentOption} />}
       <Menu
-        selectOption={(value) => (menuOption.current = value)}
-        hoveredItem={hoveredBtn}
+        currentOption={currentOption}
+        setCurrentOption={(value) => setCurrentOption(value)}
       />
       <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
         <Suspense fallback={<Load />}>
-          {Object.entries(buttons).map((item) => {
-            let text = item[0];
-            let { fn, pos, icon } = item[1];
+          {Object.entries(buttons).map((btn) => {
+            let text = btn[0];
+            let { fn, pos, icon } = btn[1];
 
             return (
               <Button
                 key={`btn-${text}`}
                 placeholder={icon}
-                onClick={() => {
-                  // setDisableOrbitControl(true);
-                  lookAtControl(controlRef.current, pos);
-                  // setTimeout(() => {
-                  //   setDisableOrbitControl(false);
-                  // }, 2000);
-                }}
                 position={pos}
                 onMouseEnter={() => {
-                  setHoveredBtn(text);
-                }}
-                onMouseLeave={() => {
-                  setHoveredBtn(null);
+                  setOptionCD(text);
                 }}
               />
             );
