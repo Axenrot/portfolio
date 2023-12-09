@@ -50,6 +50,7 @@ export const buttons = {
 export const dialogs = {
   desktop: {
     title: language == "en" ? "Desktop" : "Trabalhos",
+    route: "/pc",
     dialog:
       language == "en"
         ? [
@@ -62,6 +63,7 @@ export const dialogs = {
   },
   pokedex: {
     title: language == "en" ? "Contact" : "Contato",
+    route: "/pokedex",
     dialog:
       language == "en"
         ? ["Let's call Leon as your teammate?"]
@@ -70,7 +72,8 @@ export const dialogs = {
           ],
   },
   shelf: {
-    title: language == "en" ? "Desktop" : "Trabalhos",
+    title: language == "en" ? "Shelf" : "Trabalhos",
+    route: "/shelf",
     dialog:
       language == "en"
         ? ["Find out what Leon brings to their shelf..."]
@@ -80,6 +83,7 @@ export const dialogs = {
   },
   home: {
     title: language == "en" ? "Desktop" : "Trabalhos",
+    route: "",
     dialog:
       language == "en"
         ? [
@@ -92,6 +96,7 @@ export const dialogs = {
   },
   frame: {
     title: language == "en" ? "Education" : "Graduação",
+    route: "",
     dialog:
       language == "en"
         ? ["Wonder what's his graduation..."]

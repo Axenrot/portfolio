@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "FireRed";
+  src: url("/assets/fonts/fire-red.woff") format("woff"),
+    url("/assets/fonts/fire-red.ttf") format("truetype");
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

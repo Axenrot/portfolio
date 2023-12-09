@@ -1,14 +1,14 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import Pikachu from "../models/Pikachu";
 import { OrbitControls } from "@react-three/drei";
 import Bulbasaur from "@/models/Bulbasaur";
 
-interface IPikachuScene {
+interface IContactScene {
   width: number;
+  formState: string;
 }
 
-const PikachuScene = ({ width = 200 }: IPikachuScene) => {
+const ContactScene = ({ width = 200, formState }: IContactScene) => {
   return (
     <div className={`w-[${width}px] h-[300px] border border-red-500`}>
       <Canvas>
@@ -16,6 +16,7 @@ const PikachuScene = ({ width = 200 }: IPikachuScene) => {
         <directionalLight intensity={2.5} />
         <OrbitControls />
         <Bulbasaur
+          formState={formState}
           scale={[300, 300, 300]}
           position={[0, 0, 0]}
           rotation={[0.1, 0, 0]}
@@ -25,4 +26,4 @@ const PikachuScene = ({ width = 200 }: IPikachuScene) => {
   );
 };
 
-export default PikachuScene;
+export default ContactScene;

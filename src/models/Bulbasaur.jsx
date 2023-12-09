@@ -9,7 +9,7 @@ Title: Bulbasaur Pokemon [Animated]
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 
-export default function Bulbasaur(props) {
+export default function Bulbasaur({ formState, ...props }) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/models/bulbasaur.glb");
   const { actions } = useAnimations(animations, group);
@@ -18,8 +18,19 @@ export default function Bulbasaur(props) {
 
   useEffect(() => {
     console.log(actions);
-    actions[walk].play();
-  }, []);
+    switch (formState) {
+      case "walking":
+        actions[walk].play();
+        break;
+      case "idling":
+        actions[idle].play();
+        break;
+      // Add more cases for other animation states as needed
+      default:
+        // Handle the default case, or do nothing
+        break;
+    }
+  }, [formState, actions]);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">

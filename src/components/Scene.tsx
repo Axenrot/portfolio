@@ -61,7 +61,7 @@ const Scene = () => {
           ? currentOptionInButtons[1].pos
           : cameraPosition;
 
-      playSound("/assets/btn.wav");
+      playSound("/assets/sounds/btn.wav");
       lookAtControl(controlRef.current, target);
     }
   }, [currentOption]);
