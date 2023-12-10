@@ -25,9 +25,9 @@ export default function Pokedex() {
           </Link>
         </span>
       </span>
-      <div className="container h-full lg:gap-12 my-6 flex flex-col-reverse bg-white/50 shadow-[inset_0px_0px_30px_0px_rgba(250,237,176,0.7)] rounded-[40px] md:flex-row mx-auto p-3 items-center justify-center">
-        <ContactForm setFormState={setFormState} />
+      <div className="container h-full md:gap-12 md:my-6 flex flex-col bg-white/50 shadow-[inset_0px_0px_30px_0px_rgba(250,237,176,0.7)] rounded-[40px] md:flex-row mx-auto md:p-3 items-center justify-center">
         <ContactScene width={200} formState={formState} />
+        <ContactForm setFormState={setFormState} />
       </div>
     </main>
   );
