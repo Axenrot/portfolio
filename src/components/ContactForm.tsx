@@ -7,11 +7,36 @@ interface IContactForm {
 const ContactForm = ({ setFormState }: IContactForm) => {
   return (
     <form action="" className="flex bg-blue-400 p-6 rounded-md flex-col gap-3">
-      <input type="text" />
-      <input type="text" />
-      <input type="text" />
-      <input type="text" />
-      <input type="text" />
+      <input
+        onFocus={() => {
+          setFormState("walking");
+        }}
+        onBlur={() => {
+          setFormState("idling");
+        }}
+        type="text"
+      />
+      <input
+        onFocus={() => {
+          console.log("running");
+          setFormState("walking");
+        }}
+        onBlur={() => {
+          console.log("idling");
+          setFormState("idling");
+        }}
+        type="text"
+      />
+
+      <input
+        onFocus={() => {
+          setFormState("walking");
+        }}
+        onBlur={() => {
+          setFormState("idling");
+        }}
+        type="text"
+      />
     </form>
   );
 };

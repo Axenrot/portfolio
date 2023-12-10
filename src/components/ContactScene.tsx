@@ -10,16 +10,24 @@ interface IContactScene {
 
 const ContactScene = ({ width = 200, formState }: IContactScene) => {
   return (
-    <div className={`w-[${width}px] h-[300px] border border-red-500`}>
+    <div className={`w-[${width}px] h-[300px]`}>
       <Canvas>
         <ambientLight intensity={0.7} />
         <directionalLight intensity={2.5} />
-        <OrbitControls />
+        <OrbitControls
+          enablePan={false}
+          minDistance={3.5}
+          maxDistance={4.5}
+          minAzimuthAngle={0.8}
+          maxAzimuthAngle={1.2}
+          minPolarAngle={1}
+          maxPolarAngle={1.8}
+        />
         <Bulbasaur
           formState={formState}
           scale={[300, 300, 300]}
           position={[0, 0, 0]}
-          rotation={[0.1, 0, 0]}
+          rotation={[0, 0.7, 0]}
         />
       </Canvas>
     </div>

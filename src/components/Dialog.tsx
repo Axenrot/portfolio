@@ -32,7 +32,7 @@ const Dialog = ({ currentOption }: IDialog) => {
       )}
       <span
         data-display={!!currentOption}
-        className="data-[display=false]:hidden select-none text-6xl font-firered fadein transition-all duration-200 rounded-[26px] left-1/2 -translate-x-1/2 bottom-[3vh] w-[80vw] fixed h-[20vh] z-10 border-[3px] border-blue-400/70"
+        className="data-[display=false]:hidden select-none text-2xl lg:text-5xl font-firered fadein transition-all duration-200 rounded-[26px] left-1/2 -translate-x-1/2 bottom-[3vh] w-[80vw] fixed h-[20vh] z-10 border-[3px] border-blue-400/70"
       >
         <span
           onMouseEnter={() => {

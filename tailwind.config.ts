@@ -16,6 +16,9 @@ const config: Config = {
       fontFamily: {
         firered: ["FireRed", "sans-serif"],
       },
+      dropShadow: {
+        pixel: "0 35px 35px rgba(0, 0, 0, 1)",
+      },
     },
   },
   plugins: [],

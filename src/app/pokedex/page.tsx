@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 export default function Pokedex() {
-  const [formState, setFormState] = useState<string>("idle");
+  const [formState, setFormState] = useState<string>("idling");
   return (
     <main className="flex h-screen flex-col items-center bg-white bg-[url('/assets/contact-bg2.png')] font-firered text-3xl text-neutral-700 justify-between">
       <span className="bg-blue-500 w-full h-16 flex justify-center items-center">

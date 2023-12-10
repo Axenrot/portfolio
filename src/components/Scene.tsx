@@ -94,8 +94,12 @@ const Scene = () => {
 
           <OrbitControls
             ref={controlRef}
-            maxAzimuthAngle={Math.PI / 8}
-            maxPolarAngle={Math.PI / 2}
+            enablePan={false}
+            minAzimuthAngle={-1.2}
+            maxAzimuthAngle={1.2}
+            maxDistance={5}
+            minPolarAngle={1}
+            maxPolarAngle={1.7}
           />
           <ambientLight intensity={0.7} />
           <directionalLight intensity={2.5} />

@@ -15,19 +15,48 @@ export default function Bulbasaur({ formState, ...props }) {
   const { actions } = useAnimations(animations, group);
   const walk = "model_skeleton|001walk";
   const idle = "model_skeleton|001aidle";
+  const run = "model_skeleton|001run";
+  const jumpS = "model_skeleton|001jump_s";
+  const jumpL = "model_skeleton|001jump_l";
+  const jumpE = "model_skeleton|001jump_e";
+  const ko = "model_skeleton|001ko";
+  const fight_b = "model_skeleton|001fight_b";
+  const fight_d = "model_skeleton|001fight_d";
 
   useEffect(() => {
     console.log(actions);
     switch (formState) {
       case "walking":
-        actions[walk].play();
+        actions[walk].reset().play();
         break;
       case "idling":
-        actions[idle].play();
+        actions[idle].reset().play();
+        break;
+      case "running":
+        actions[run].reset().play();
+        break;
+      case "jumping_small":
+        actions[jumpS].reset().play();
+        break;
+      case "jumping_large":
+        actions[jumpL].reset().play();
+        break;
+      case "jumping_extra":
+        actions[jumpE].reset().play();
+        break;
+      case "knocked_out":
+        actions[ko].reset().play();
+        break;
+      case "fighting_basic":
+        actions[fight_b].reset().play();
+        break;
+      case "fighting_defensive":
+        actions[fight_d].reset().play();
         break;
       // Add more cases for other animation states as needed
       default:
         // Handle the default case, or do nothing
+        actions[idle].play();
         break;
     }
   }, [formState, actions]);
