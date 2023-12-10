@@ -84,7 +84,7 @@ const Scene = () => {
                 key={`btn-${text}`}
                 placeholder={icon}
                 position={pos}
-                onMouseEnter={() => {
+                onClick={() => {
                   setOptionCD(text);
                 }}
               />

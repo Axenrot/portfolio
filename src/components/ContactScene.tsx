@@ -10,7 +10,7 @@ interface IContactScene {
 
 const ContactScene = ({ width = 200, formState }: IContactScene) => {
   return (
-    <div className={`w-[${width}px] h-[300px]`}>
+    <div className={`w-[300px] h-[300px]`}>
       <Canvas>
         <ambientLight intensity={0.7} />
         <directionalLight intensity={2.5} />
@@ -25,8 +25,8 @@ const ContactScene = ({ width = 200, formState }: IContactScene) => {
         />
         <Bulbasaur
           formState={formState}
-          scale={[300, 300, 300]}
-          position={[0, 0, 0]}
+          scale={[500, 500, 500]}
+          position={[0, -1, 0]}
           rotation={[0, 0.7, 0]}
         />
       </Canvas>
