@@ -32,7 +32,7 @@ const Dialog = ({ currentOption }: IDialog) => {
       )}
       <span
         data-display={!!currentOption}
-        className="data-[display=false]:hidden select-none text-6xl font-firered fadein transition-all duration-200 rounded-[26px] left-1/2 -translate-x-1/2 bottom-[3vh] w-[80vw] fixed h-[20vh] z-10 border-[3px] border-blue-400/70"
+        className="data-[display=false]:hidden select-none text-2xl sm:text-3xl lg:text-5xl font-firered fadein transition-all duration-200 rounded-[14px] left-1/2 -translate-x-1/2 bottom-[3vh] w-[80vw] fixed h-[20vh] z-10 border-[3px] border-blue-400/70"
       >
         <span
           onMouseEnter={() => {
@@ -43,9 +43,9 @@ const Dialog = ({ currentOption }: IDialog) => {
             router.push(route);
           }}
           data-display={currentDialog + 1 == dialog.length && route.length > 0}
-          className="group flex data-[display=false]:hidden cursor-pointer fadein absolute right-0 -top-28  border-[3px] rounded-[26px] border-blue-400/70"
+          className="group flex data-[display=false]:hidden cursor-pointer fadein absolute right-0 -top-20 lg:-top-28  border-[3px] rounded-[14px] border-blue-400/70"
         >
-          <span className="relative flex items-center bg-white/90 border-blue-200 border-[3px] px-8 py-2 h-full w-full rounded-3xl text-neutral-900 ">
+          <span className="relative flex items-center bg-white/90 border-blue-200 border-[3px] px-8 py-2 h-full w-full rounded-xl text-neutral-900 ">
             <span className="hidden group-hover:block -rotate-90 absolute left-3 mt-1">
               <Image
                 src="/assets/icons/arrow-down.png"
@@ -55,17 +55,17 @@ const Dialog = ({ currentOption }: IDialog) => {
                 alt=""
               />
             </span>
-            Visit!
+            VISIT PAGE
           </span>
         </span>
-        <div className="text-neutral-900 h-full w-full bg-white/90 border-blue-200 border-[3px] flex flex-col gap-3 p-6 rounded-3xl">
+        <div className="text-neutral-900 h-full w-full bg-white/90 border-blue-200 border-[3px] flex flex-col gap-3 px-6 py-2 rounded-xl">
           <span className="relative flex h-full">
             {dialog.map((diag, index) => {
               return (
                 <p
                   key={`label-${index}`}
                   data-display={index == currentDialog}
-                  className="data-[display=false]:hidden fadein"
+                  className="data-[display=false]:hidden fadein tracking-wider"
                 >
                   {diag}
                 </p>

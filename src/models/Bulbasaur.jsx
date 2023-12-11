@@ -6,7 +6,7 @@ Source: https://sketchfab.com/3d-models/bulbasaur-pokemon-animated-d2a9a79626134
 Title: Bulbasaur Pokemon [Animated]
 */
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 
 export default function Bulbasaur({ formState, ...props }) {
@@ -15,22 +15,65 @@ export default function Bulbasaur({ formState, ...props }) {
   const { actions } = useAnimations(animations, group);
   const walk = "model_skeleton|001walk";
   const idle = "model_skeleton|001aidle";
+  const run = "model_skeleton|001run";
+  const jumpS = "model_skeleton|001jump_s";
+  const jumpL = "model_skeleton|001jump_l";
+  const jumpE = "model_skeleton|001jump_e";
+  const ko = "model_skeleton|001ko";
+  const fight_b = "model_skeleton|001fight_b";
+  const fight_d = "model_skeleton|001fight_d";
+  const [currentAction, setCurrentAction] = useState(idle);
 
   useEffect(() => {
-    console.log(actions);
     switch (formState) {
       case "walking":
-        actions[walk].play();
+        actions[currentAction].stop();
+        actions[walk].reset().play();
+        setCurrentAction(walk);
         break;
       case "idling":
-        actions[idle].play();
+        actions[currentAction].stop();
+        actions[idle].reset().play();
+        setCurrentAction(idle);
+        break;
+      case "running":
+        actions[currentAction].stop();
+        actions[run].reset().play();
+        break;
+      case "jumping_small":
+        actions[currentAction].stop();
+        actions[jumpS].reset().play();
+        break;
+      case "jumping_large":
+        actions[currentAction].stop();
+        actions[jumpL].reset().play();
+        setCurrentAction(jumpL);
+        break;
+      case "jumping_extra":
+        actions[currentAction].stop();
+        actions[jumpE].reset().play();
+        setCurrentAction(jumpE);
+        break;
+      case "knocked_out":
+        actions[currentAction].stop();
+        actions[ko].reset().play();
+        setCurrentAction(ko);
+        break;
+      case "fighting_basic":
+        actions[currentAction].stop();
+        actions[fight_b].reset().play(setCurrentAction(fight_b));
+        break;
+      case "fighting_defensive":
+        actions[currentAction].stop();
+        actions[fight_d].reset().play(setCurrentAction(fight_d));
         break;
       // Add more cases for other animation states as needed
       default:
-        // Handle the default case, or do nothing
+        actions[currentAction].stop();
+        actions[idle].play();
         break;
     }
-  }, [formState, actions]);
+  }, [formState, actions, currentAction]);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">
