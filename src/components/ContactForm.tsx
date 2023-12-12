@@ -1,6 +1,7 @@
+import debounce from "@/hooks/debounce";
 import { playSound } from "@/utils/playSound";
 import axios from "axios";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 interface IContactForm {
@@ -10,10 +11,11 @@ interface IContactForm {
 const ContactForm = ({ setFormState }: IContactForm) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [emailSent, setEmailSent] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [name, setName] = useState<string>("teste");
   const [email, setEmail] = useState<string>("alou@hotmail.com");
   const [company, setCompany] = useState<string>("falabela");
-  const [subject, setSubject] = useState<string>("assunto");
+  const [phone, setPhone] = useState<string>("84999979789");
   const [text, setText] = useState<string>("mensagem");
 
   function handleSendEmail() {
@@ -22,7 +24,7 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       .post("/api/contact", {
         email,
         name,
-        subject,
+        phone,
         text,
         company,
       })
@@ -46,6 +48,14 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       .finally(() => setLoading(false));
   }
 
+  const debouncedIdle = useCallback(() => {
+    console.log("????");
+    debounce(() => {
+      console.log("called debouncedIdle");
+      setFormState("idling");
+    }, 2000);
+  }, [setFormState]);
+
   return (
     <form
       onSubmit={(e) => {
@@ -58,12 +68,13 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       <span className="flex w-full flex-col">
         <label htmlFor="">Name</label>
         <input
-          onFocus={() => {
+          onFocus={() => setIsFocused(true)}
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
             setFormState("walking");
           }}
-          onBlur={() => {
-            setFormState("idling");
-          }}
+          onBlur={() => setFormState("idling")}
           type="text"
           className="px-2 rounded-md"
         />
@@ -71,12 +82,15 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       <span className="flex w-full flex-col">
         <label htmlFor="">Email</label>
         <input
-          onFocus={() => {
+          onFocus={() => setIsFocused(true)}
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
             setFormState("walking");
+            console.log("vai chamar o debounced idle");
+            debouncedIdle();
           }}
-          onBlur={() => {
-            setFormState("idling");
-          }}
+          onBlur={() => setFormState("idling")}
           type="text"
           className="px-2 rounded-md"
         />
@@ -85,12 +99,13 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       <span className="flex w-full flex-col">
         <label htmlFor="">Phone</label>
         <input
-          onFocus={() => {
+          onFocus={() => setIsFocused(true)}
+          value={phone}
+          onChange={(e) => {
+            setPhone(e.target.value);
             setFormState("walking");
           }}
-          onBlur={() => {
-            setFormState("idling");
-          }}
+          onBlur={() => setFormState("idling")}
           type="text"
           className="px-2 rounded-md"
         />
@@ -99,12 +114,13 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       <span className="flex w-full flex-col">
         <label htmlFor="">Message</label>
         <input
-          onFocus={() => {
+          onFocus={() => setIsFocused(true)}
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
             setFormState("walking");
           }}
-          onBlur={() => {
-            setFormState("idling");
-          }}
+          onBlur={() => setFormState("idling")}
           type="text"
           className="px-2 rounded-md"
         />
