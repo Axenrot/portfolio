@@ -25,14 +25,14 @@ export async function POST(request: Request) {
 
   let message = `Olá, sou: ${name || "*Não informado*"}\nda empresa: ${
     company || "*Não informado*"
-  }\n meu telefone é: ${phone}\n meu email é: ${
+  }\nmeu telefone é: ${phone}\nmeu email é: ${
     email || "*Não informado*"
-  }\n quero falar sobre: ${text || "*Não informado*"}`;
+  }\nquero falar sobre: ${text || "*Não informado*"}`;
 
   const mailOptions = {
     from: process.env.EMAIL_ADDRESS,
     to: process.env.RECEIVER_EMAIL_ADDRESS,
-    subject: `company: ${company || "*Não informado*"}`,
+    subject: `PAGE-CONTACT: ${company || "*Não informado*"}`,
     text: `message: ${message || "*Não informado*"}`,
   };
 

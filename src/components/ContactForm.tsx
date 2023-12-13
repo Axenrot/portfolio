@@ -1,8 +1,9 @@
 import debounce from "@/hooks/debounce";
 import { playSound } from "@/utils/playSound";
 import axios from "axios";
-import { Dispatch, SetStateAction, useCallback, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import Swal from "sweetalert2";
+import { maskPhone, maskText } from "@/utils/masks";
 
 interface IContactForm {
   setFormState: Dispatch<SetStateAction<string>>;
@@ -11,15 +12,16 @@ interface IContactForm {
 const ContactForm = ({ setFormState }: IContactForm) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [emailSent, setEmailSent] = useState<boolean>(false);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [name, setName] = useState<string>("teste");
-  const [email, setEmail] = useState<string>("alou@hotmail.com");
-  const [company, setCompany] = useState<string>("falabela");
-  const [phone, setPhone] = useState<string>("84999979789");
-  const [text, setText] = useState<string>("mensagem");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [company, setCompany] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [text, setText] = useState<string>("");
 
   function handleSendEmail() {
     setLoading(true);
+    setFormState("fighting_defensive");
+    debouncedIdle();
     axios
       .post("/api/contact", {
         email,
@@ -31,107 +33,160 @@ const ContactForm = ({ setFormState }: IContactForm) => {
       .then(() => {
         setEmailSent(true);
         Swal.fire({
-          title: "Obrigado!",
-          text: "Sua mensagem foi recebida e entraremos em contato",
+          title: "Thanks!",
+          text: "Your message has been sent",
           icon: "success",
-          confirmButtonText: "Muito bom",
+          background: "#3b82f6",
+          color: "#fff",
+          confirmButtonColor: "#EAB308",
+          confirmButtonText: "Nice!",
         });
+
+        playSound("/assets/sounds/success.wav");
+        setName("");
+        setCompany("");
+        setEmail("");
+        setPhone("");
+        setText("");
       })
-      .catch(() =>
+      .catch(() => {
         Swal.fire({
           title: "Ops...",
-          text: "Ocorreu algum problema com o envio, por favor tente novamente",
+          text: "Some issue has occurred",
           icon: "error",
-          confirmButtonText: "Poxa :(",
-        })
-      )
+          background: "#3b82f6",
+          color: "#fff",
+          confirmButtonColor: "#EAB308",
+          confirmButtonText: "Try again :(",
+        });
+        setFormState("ko");
+        debouncedIdle();
+      })
       .finally(() => setLoading(false));
   }
 
-  const debouncedIdle = useCallback(() => {
-    console.log("????");
+  //eslint-disable-next-line
+  const debouncedIdle = useCallback(
     debounce(() => {
-      console.log("called debouncedIdle");
       setFormState("idling");
-    }, 2000);
-  }, [setFormState]);
+    }, 2500),
+    []
+  );
+
+  const walk = () => {
+    setFormState("idling");
+    debouncedIdle();
+  };
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        playSound("/assets/sounds/select.wav");
+
         handleSendEmail();
       }}
       action=""
-      className="flex bg-blue-400 p-6 rounded-md flex-col gap-3"
+      className="flex bg-blue-400 p-6 rounded-md flex-col gap-1"
     >
       <span className="flex w-full flex-col">
-        <label htmlFor="">Name</label>
+        <label htmlFor="name">Name*</label>
         <input
-          onFocus={() => setIsFocused(true)}
+          id="name"
+          required
           value={name}
+          placeholder="Your Name"
           onChange={(e) => {
-            setName(e.target.value);
-            setFormState("walking");
+            setName(maskText(e.target.value));
+            walk();
           }}
           onBlur={() => setFormState("idling")}
+          onFocus={() => walk()}
+          disabled={loading}
           type="text"
           className="px-2 rounded-md"
         />
       </span>
       <span className="flex w-full flex-col">
-        <label htmlFor="">Email</label>
+        <label htmlFor="company">Company</label>
         <input
-          onFocus={() => setIsFocused(true)}
+          id="company"
+          required
+          value={company}
+          placeholder="Your Company"
+          onChange={(e) => {
+            setCompany(e.target.value);
+            walk();
+          }}
+          onBlur={() => setFormState("idling")}
+          onFocus={() => walk()}
+          disabled={loading}
+          type="text"
+          className="px-2 rounded-md"
+        />
+      </span>
+      <span className="flex w-full flex-col">
+        <label htmlFor="email">Email*</label>
+        <input
+          id="email"
+          required
           value={email}
+          placeholder="your@email.here"
           onChange={(e) => {
-            setEmail(e.target.value);
-            setFormState("walking");
-            console.log("vai chamar o debounced idle");
-            debouncedIdle();
+            setEmail(e.target.value.replaceAll(" ", ""));
+            walk();
           }}
           onBlur={() => setFormState("idling")}
-          type="text"
+          onFocus={() => walk()}
+          disabled={loading}
+          type="email"
           className="px-2 rounded-md"
         />
       </span>
 
       <span className="flex w-full flex-col">
-        <label htmlFor="">Phone</label>
+        <label htmlFor="phone">Phone</label>
         <input
-          onFocus={() => setIsFocused(true)}
+          id="phone"
           value={phone}
+          placeholder="+55999999999"
+          minLength={10}
           onChange={(e) => {
-            setPhone(e.target.value);
-            setFormState("walking");
+            setPhone(maskPhone(e.target.value));
+            walk();
           }}
           onBlur={() => setFormState("idling")}
+          onFocus={() => walk()}
+          disabled={loading}
           type="text"
           className="px-2 rounded-md"
         />
       </span>
 
       <span className="flex w-full flex-col">
-        <label htmlFor="">Message</label>
-        <input
-          onFocus={() => setIsFocused(true)}
+        <label htmlFor="message">Message*</label>
+        <textarea
+          id="message"
           value={text}
+          placeholder="Your message here"
+          minLength={3}
           onChange={(e) => {
             setText(e.target.value);
-            setFormState("walking");
+            walk();
           }}
           onBlur={() => setFormState("idling")}
-          type="text"
+          onFocus={() => walk()}
+          disabled={loading}
           className="px-2 rounded-md"
         />
       </span>
       <button
         type="submit"
-        onClick={() => playSound("/assets/sounds/btn.wav")}
+        disabled={loading}
         onMouseEnter={() => playSound("/assets/sounds/btn.wav")}
-        className="hover:bg-yellow-500 mt-2 rounded-md hover:text-white text-yellow-500 bg-blue-500"
+        className="disabled:bg-yellow-500 disabled:text-white hover:bg-yellow-500 mt-2 rounded-md hover:text-white text-yellow-500 bg-blue-500"
       >
-        Submit!
+        {loading ? "Loading..." : "Submit!"}
       </button>
     </form>
   );
