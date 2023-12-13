@@ -12,7 +12,7 @@ export default function Shelf() {
       <span className="bg-blue-500 w-full h-16 flex justify-center items-center">
         <span className="container flex w-full justify-end">
           <Link href={"/"}>
-            <FireRedText primary="white" secondary="neutral-700">
+            <FireRedText>
               <Image
                 src="/assets/icons/home.svg"
                 width={10}
