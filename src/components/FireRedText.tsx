@@ -3,14 +3,12 @@ import { ReactNode } from "react";
 
 interface FireRedTextProps {
   children: ReactNode;
-  primary?: string;
-  secondary?: string;
 }
 
-const FireRedText = ({ children, primary, secondary }: FireRedTextProps) => {
+const FireRedText = ({ children, ...props }: FireRedTextProps) => {
   return (
     <span
-      onMouseEnter={() => playSound("/assets/sounds/btn.wav")}
+      {...props}
       className={`hover:filter hover:hue-rotate-60 hover:opacity-100 opacity-90 relative items-center z-10 flex w-fit flex-nowrap h-fit text-white`}
     >
       <p className="flex items-center gap-2 flex-shrink-0 flex-nowrap whitespace-nowrap drop-shadow-pixel">
