@@ -9,7 +9,7 @@ export default function PC() {
       <span className="bg-blue-500 w-full h-16 flex justify-center items-center">
         <span className="container select-none px-3 flex w-full justify-between">
           <h1 className="text-white">
-            <FireRedText>Leon's Features</FireRedText>
+            <FireRedText>Leon&apos;s Features</FireRedText>
           </h1>
           <Link
             onMouseEnter={() => playSound("/assets/sounds/btn.wav")}
