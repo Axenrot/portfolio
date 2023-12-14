@@ -14,7 +14,6 @@ const ContactForm = ({ setFormState }: IContactForm) => {
   const [emailSent, setEmailSent] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [company, setCompany] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [text, setText] = useState<string>("");
 
@@ -28,7 +27,6 @@ const ContactForm = ({ setFormState }: IContactForm) => {
         name,
         phone,
         text,
-        company,
       })
       .then(() => {
         setEmailSent(true);
@@ -44,7 +42,6 @@ const ContactForm = ({ setFormState }: IContactForm) => {
 
         playSound("/assets/sounds/success.wav");
         setName("");
-        setCompany("");
         setEmail("");
         setPhone("");
         setText("");
@@ -74,7 +71,7 @@ const ContactForm = ({ setFormState }: IContactForm) => {
   );
 
   const walk = () => {
-    setFormState("idling");
+    setFormState("walking");
     debouncedIdle();
   };
 
@@ -107,24 +104,7 @@ const ContactForm = ({ setFormState }: IContactForm) => {
           className="px-2 rounded-md"
         />
       </span>
-      <span className="flex w-full flex-col">
-        <label htmlFor="company">Company</label>
-        <input
-          id="company"
-          required
-          value={company}
-          placeholder="Your Company"
-          onChange={(e) => {
-            setCompany(e.target.value);
-            walk();
-          }}
-          onBlur={() => setFormState("idling")}
-          onFocus={() => walk()}
-          disabled={loading}
-          type="text"
-          className="px-2 rounded-md"
-        />
-      </span>
+
       <span className="flex w-full flex-col">
         <label htmlFor="email">Email*</label>
         <input
