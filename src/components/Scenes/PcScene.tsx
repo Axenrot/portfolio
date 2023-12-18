@@ -20,17 +20,17 @@ const PcScene = ({ index = 1 }: IPcScene) => {
         <ambientLight intensity={0.5} />
         <directionalLight ref={dirLight} intensity={2} position={[-4, 7, 10]} />
         <OrbitControls
-          enablePan={false}
-          // minDistance={10}
-          // maxDistance={10}
-          minAzimuthAngle={-0.3}
-          maxAzimuthAngle={0.3}
-          minPolarAngle={1}
-          maxPolarAngle={1.8}
+        // enablePan={false}
+        // minDistance={10}
+        // maxDistance={10}
+        // minAzimuthAngle={-0.3}
+        // maxAzimuthAngle={0.3}
+        // minPolarAngle={1}
+        // maxPolarAngle={1.8}
         />
 
         <Screen scale={[0.1, 0.1, 0.1]} position={[-0.5, -2.5, 0]} />
-        <Phone position={[-4, -1.2, 2.9]} rotation={[1.2, Math.PI, 0]} />
+        <Phone position={[-4, -1.2, 2.7]} rotation={[1.2, Math.PI, 0]} />
         {/* HELLOW */}
       </Canvas>
     </span>

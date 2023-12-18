@@ -1,10 +1,34 @@
 import React from "react";
 import { useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 export function Phone(props) {
   const { nodes, materials } = useGLTF("/models/old_phone.glb");
+  const width = 9;
+  const height = 16;
+  const geometry = new THREE.PlaneGeometry(width, height);
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load("/assets/screens/hubbi-mobile.png");
+
+  // Create a material with the loaded texture
+  const bodyMaterial = new THREE.MeshBasicMaterial({
+    map: texture,
+    opacity: 0.9,
+    transparent: true,
+  });
   return (
     <group {...props} dispose={null}>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={geometry}
+        material={bodyMaterial}
+        // position={[-7.625, -0.488, 21.35]}
+        position={[0, 0.0735, 0]}
+        rotation={[-Math.PI / 2, 0, Math.PI]}
+        scale={0.26}
+      />
+
       <group scale={0.1}>
         <mesh
           castShadow
@@ -21,14 +45,6 @@ export function Phone(props) {
           geometry={nodes.pCube1_lambert1_0.geometry}
           material={materials.lambert1}
           scale={[25.13, 4.139, 43.549]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pCube2_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[0, 0.352, -18.932]}
-          scale={[4.879, 1.34, 1.984]}
         />
         <mesh
           castShadow
