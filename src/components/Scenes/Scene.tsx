@@ -90,7 +90,6 @@ const Scene = () => {
               />
             );
           })}
-          {/* <PerspectiveCamera makeDefault ref={cameraRef} position={[0, 2, 4]} /> */}
 
           <OrbitControls
             ref={controlRef}
@@ -103,8 +102,6 @@ const Scene = () => {
           />
           <ambientLight intensity={0.7} />
           <directionalLight intensity={2.5} />
-          {/* <pointLight /> */}
-          {/* <hemisphereLight /> */}
           <Pokedex
             opened={openPokedex}
             position={pokedexPosition}

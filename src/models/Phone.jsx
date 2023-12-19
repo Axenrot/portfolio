@@ -1,18 +1,29 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-export function Phone(props) {
+export function Phone({ selectedOption, ...props }) {
   const { nodes, materials } = useGLTF("/models/old_phone.glb");
   const width = 9;
   const height = 16;
   const geometry = new THREE.PlaneGeometry(width, height);
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load("/assets/screens/hubbi-mobile.png");
+  const texture = useRef(null);
+  texture.current = textureLoader.load(
+    `/assets/screens/${selectedOption}-mobile.png`
+  );
+
+  useEffect(() => {
+    texture.current = textureLoader.load(
+      `/assets/screens/${selectedOption}-mobile.png`
+    );
+
+    //eslint-disable-next-line
+  }, [selectedOption]);
 
   // Create a material with the loaded texture
   const bodyMaterial = new THREE.MeshBasicMaterial({
-    map: texture,
+    map: texture.current,
     opacity: 0.9,
     transparent: true,
   });

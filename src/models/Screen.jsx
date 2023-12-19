@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-export function Screen(props) {
+export function Screen({ selectedOption, ...props }) {
   const radius = 32;
   const widthSegments = 31;
   const heightSegments = 31;
-
-  const thetaStart = (5 * Math.PI) / 11;
-  const thetaLength = Math.PI / 11;
   const phiStart = 0;
   const phiLength = 0.4;
+  const thetaStart = (5 * Math.PI) / 11;
+  const thetaLength = Math.PI / 11;
 
   const geometry = new THREE.SphereGeometry(
     radius,
@@ -24,16 +23,27 @@ export function Screen(props) {
 
   // Load an image texture
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load("/assets/screens/hubbi-web.png");
+  const texture = useRef(null);
+  texture.current = textureLoader.load(
+    `/assets/screens/${selectedOption}-web.png`
+  );
+  useEffect(() => {
+    texture.current = textureLoader.load(
+      `/assets/screens/${selectedOption}-web.png`
+    );
+
+    //eslint-disable-next-line
+  }, [selectedOption]);
 
   // Create a material with the loaded texture
   const bodyMaterial = new THREE.MeshBasicMaterial({
-    map: texture,
+    map: texture.current,
     opacity: 0.9,
     transparent: true,
   });
 
   const { nodes, materials } = useGLTF("/models/old_monitor.glb");
+
   return (
     <group {...props} dispose={null}>
       {/* <SemiSphere />
@@ -45,7 +55,7 @@ export function Screen(props) {
         geometry={geometry}
         material={bodyMaterial}
         scale={5.9}
-        position={[17, 35, -169.8]}
+        position={[19, 35, -169.8]}
         rotation={[0, Math.PI / 2 - 0.25, 0]}
       />
       <mesh
