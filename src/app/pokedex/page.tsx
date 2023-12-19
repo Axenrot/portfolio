@@ -1,6 +1,6 @@
 "use client";
 import ContactForm from "@/components/ContactForm";
-import ContactScene from "@/components/ContactScene";
+import ContactScene from "@/components/Scenes/ContactScene";
 import FireRedText from "@/components/FireRedText";
 import { playSound } from "@/utils/playSound";
 import Image from "next/image";
