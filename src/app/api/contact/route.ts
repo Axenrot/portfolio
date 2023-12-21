@@ -4,7 +4,6 @@ import nodemailer from "nodemailer";
 interface IncomingData {
   email: string;
   name?: string;
-  company?: string;
   phone?: string;
   text: string;
 }
@@ -12,7 +11,7 @@ interface IncomingData {
 export async function POST(request: Request) {
   const data = (await request.json()) as IncomingData;
 
-  const { email, name, company, phone, text } = data;
+  const { email, name, phone, text } = data;
 
   const transporter = nodemailer.createTransport({
     headers: { "Content-Type": "application/json" },
@@ -23,8 +22,8 @@ export async function POST(request: Request) {
     },
   });
 
-  let message = `Olá, sou: ${name || "*Não informado*"}\nda empresa: ${
-    company || "*Não informado*"
+  let message = `Olá, sou: ${
+    name || "*Não informado*"
   }\nmeu telefone é: ${phone}\nmeu email é: ${
     email || "*Não informado*"
   }\nquero falar sobre: ${text || "*Não informado*"}`;
@@ -32,7 +31,7 @@ export async function POST(request: Request) {
   const mailOptions = {
     from: process.env.EMAIL_ADDRESS,
     to: process.env.RECEIVER_EMAIL_ADDRESS,
-    subject: `PAGE-CONTACT: ${company || "*Não informado*"}`,
+    subject: `PAGE-CONTACT: ${name || "*Não informado*"}`,
     text: `message: ${message || "*Não informado*"}`,
   };
 
