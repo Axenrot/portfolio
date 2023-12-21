@@ -3,7 +3,7 @@ export const projects = {
     name: "Hubbi",
     route: "https://www.hubbi.app",
     description:
-      "A Marketplace which I've participated on it's full development. The system is a B2B exclusive for the auto parts sector, connecting consumers, retailers, and suppliers involving everything needed. Stacks used were JavaScript, React.js, Redux, Node, Next and Tailwind.",
+      "A Marketplace which I've participated on it's full development for over a year. The system is a B2B exclusive for the auto parts sector, connecting consumers, retailers, and suppliers. Stacks used were JavaScript, React.js, Redux, Node, Next and Tailwind.",
     web: [""],
     mobile: [""],
   },
