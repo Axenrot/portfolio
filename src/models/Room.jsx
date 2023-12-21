@@ -4,8 +4,6 @@ import * as THREE from "three";
 
 export default function Room({ ...props }) {
   const { nodes, materials } = useGLTF("/models/room.glb");
-  const wall = new THREE.BoxGeometry(0.2, 2.9, 7.5);
-  console.log(materials);
   return (
     <group {...props} dispose={null}>
       {/*wall

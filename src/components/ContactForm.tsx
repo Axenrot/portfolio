@@ -1,4 +1,4 @@
-import debounce from "@/hooks/debounce";
+import debounce from "@/hooks/useDebounce";
 import { playSound } from "@/utils/playSound";
 import axios from "axios";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
@@ -84,7 +84,7 @@ const ContactForm = ({ setFormState }: IContactForm) => {
         handleSendEmail();
       }}
       action=""
-      className="flex bg-blue-400 p-6 rounded-md flex-col gap-1"
+      className="flex bg-blue-400 text-base md:text-xl lg:text-3xl p-6 rounded-md flex-col gap-1"
     >
       <span className="flex w-full flex-col">
         <label htmlFor="name">Name*</label>

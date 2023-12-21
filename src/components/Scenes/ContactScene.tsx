@@ -2,16 +2,22 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Bulbasaur from "@/models/Bulbasaur";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 interface IContactScene {
-  width: number;
   formState: string;
 }
 
-const ContactScene = ({ width = 200, formState }: IContactScene) => {
+const ContactScene = ({ formState }: IContactScene) => {
+  const { width } = useWindowDimensions();
+  const componentWidth = width < 768 ? "200px" : "300px";
   return (
-    <span className="w-[250px] h-[250px] overflow-hidden">
-      <div className={`w-[300px] h-[300px]`}>
+    <span
+      className={`w-[${Number(componentWidth) * 0.7}px] h-[${
+        Number(componentWidth) * 0.7
+      }] overflow-hidden`}
+    >
+      <div className={`w-[${componentWidth}] h-[${componentWidth}]`}>
         <Canvas>
           <ambientLight intensity={0.7} />
           <directionalLight intensity={2.5} />
