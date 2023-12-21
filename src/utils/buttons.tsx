@@ -73,7 +73,7 @@ export const dialogs = {
   },
   shelf: {
     title: language == "en" ? "Shelf" : "Trabalhos",
-    route: "/shelf",
+    route: "",
     dialog:
       language == "en"
         ? ["Find out what Leon brings to their shelf..."]
