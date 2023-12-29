@@ -1,3 +1,4 @@
+"use client";
 import { Canvas, useThree, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Screen } from "@/models/Screen";
