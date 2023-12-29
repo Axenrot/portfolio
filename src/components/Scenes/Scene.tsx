@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useState } from "react";
 import Load from "../Load";
 import Room from "../../models/Room";
-import { OrbitControls } from "@react-three/drei";
+import { Html, OrbitControls } from "@react-three/drei";
 import Button from "../Button";
 import Dialog from "../Dialog";
 
@@ -13,12 +13,13 @@ import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
 import { lookAtControl } from "@/utils/cameraMovement";
 import { playSound } from "@/utils/playSound";
+import Transition from "../Transition";
 
 const Scene = () => {
   const [currentOption, setCurrentOption] = useState<string | null>("home");
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
+  const displayScene = useRef<any>(true);
   const controlRef = useRef<any>();
-
   const isCooldown = useRef(false);
 
   const setOptionCD = useCallback(
@@ -67,13 +68,25 @@ const Scene = () => {
   }, [currentOption]);
 
   return (
-    <span className="w-full h-screen">
-      {currentOption && <Dialog currentOption={currentOption} />}
+    <span className="relative w-full h-screen">
+      {!displayScene.current && <Transition />}
+      {currentOption && (
+        <Dialog
+          currentOption={currentOption}
+          onPush={() => {
+            displayScene.current = false;
+          }}
+        />
+      )}
       <Menu
         currentOption={currentOption}
         setCurrentOption={(value) => setCurrentOption(value)}
       />
-      <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
+      <Canvas
+        camera={{ near: 0.01, far: 1000, position: cameraPosition }}
+        data-display={displayScene.current}
+        className="data-[display=false]:opacity-0"
+      >
         <Suspense fallback={<Load />}>
           {Object.entries(buttons).map((btn) => {
             let text = btn[0];
@@ -96,7 +109,7 @@ const Scene = () => {
             enablePan={false}
             minAzimuthAngle={-1.2}
             maxAzimuthAngle={1.2}
-            maxDistance={3}
+            maxDistance={5}
             minPolarAngle={0.8}
             maxPolarAngle={1.4}
           />

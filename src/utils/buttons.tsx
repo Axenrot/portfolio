@@ -55,7 +55,7 @@ export const dialogs = {
       language == "en"
         ? [
             "You turned the PC on, what do you want to do?",
-            "Click on the 'suitcase' button to navigate on PC and see Leon's featured jobs!",
+            "Click on 'visit page' to check out his featured jobs!",
           ]
         : [
             "Texto em portugues aleatorio lorem ipsum hasu asasjhdia ms akd jah hsau hasud sajk qhas lasd hu",
@@ -76,7 +76,7 @@ export const dialogs = {
     route: "",
     dialog:
       language == "en"
-        ? ["Find out what Leon brings to their shelf..."]
+        ? ["Wonder what Leon brings to their shelf..."]
         : [
             "Texto em portugues aleatorio lorem ipsum hasu asasjhdia ms akd jah hsau hasud sajk qhas lasd hu",
           ],
@@ -96,10 +96,10 @@ export const dialogs = {
   },
   frame: {
     title: language == "en" ? "Education" : "Graduação",
-    route: "",
+    route: "/curriculum",
     dialog:
       language == "en"
-        ? ["Wonder what's his graduation..."]
+        ? ["Seems to be describing something about his journey..."]
         : [
             "Texto em portugues aleatorio lorem ipsum hasu asasjhdia ms akd jah hsau hasud sajk qhas lasd hu",
           ],

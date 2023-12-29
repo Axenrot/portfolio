@@ -21,7 +21,7 @@ const ProjectsDialog = ({ currentOption }: IProjectsDialog) => {
         }}
         className="group flex cursor-pointer fadein border-[3px] rounded-[14px] border-blue-400/70 h-fit w-fit ml-auto"
       >
-        <span className="relative flex items-center bg-white/90 border-blue-200 border-[3px] px-8 py-2 h-full w-full rounded-xl text-neutral-900 ">
+        <span className="relative flex items-center bg-white/90 border-blue-200 border-[3px] px-8 py-2 h-full w-full text-xl md:text-2xl rounded-xl text-neutral-900 ">
           <span className="hidden group-hover:block -rotate-90 absolute left-3 mt-1">
             <Image
               src="/assets/icons/arrow-down.png"
@@ -34,11 +34,13 @@ const ProjectsDialog = ({ currentOption }: IProjectsDialog) => {
           CHECK IT OUT!
         </span>
       </span>
-      <span className="select-none flex flex-1 text-2xl sm:text-3xl lg:text-2xl font-firered fadein transition-all duration-200 rounded-[14px] border-[3px] border-blue-400/70">
-        <span className="gap-3 flex flex-wrap flex-1 text-neutral-900 w-full bg-white/90 border-blue-200 border-[3px] px-6 py-2 rounded-xl">
-          {description.split(" ").map((word, index) => (
-            <p key={`word-${index}`}>{word}</p>
-          ))}
+      <span className="select-none h-[25vh] overflow-hidden flex flex-1 text-xl sm:text-2xl font-firered fadein transition-all duration-200 rounded-[14px] border-[3px] border-blue-400/70">
+        <span className="gap-3 h-full p-1 flex flex-wrap flex-1 text-neutral-900 w-full bg-white/90 border-blue-200 border-[3px] rounded-xl">
+          <span className="h-full w-full flex-1 flex flex-wrap gap-2 overflow-y-auto px-3 py-2">
+            {description.split(" ").map((word, index) => (
+              <p key={`word-${index}`}>{word}</p>
+            ))}
+          </span>
         </span>
       </span>
     </div>

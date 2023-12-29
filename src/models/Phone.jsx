@@ -35,7 +35,7 @@ export function Phone({ selectedOption, ...props }) {
         geometry={geometry}
         material={bodyMaterial}
         // position={[-7.625, -0.488, 21.35]}
-        position={[0, 0.0735, 0]}
+        position={[0, 0.075, 0]}
         rotation={[-Math.PI / 2, 0, Math.PI]}
         scale={0.26}
       />
@@ -62,7 +62,7 @@ export function Phone({ selectedOption, ...props }) {
           receiveShadow
           geometry={nodes.pCylinder2_lambert1_0.geometry}
           material={materials.lambert1}
-          position={[0, 0.052, 19.328]}
+          position={[0, 0.082, 19.328]}
           scale={0.693}
         />
         <mesh
