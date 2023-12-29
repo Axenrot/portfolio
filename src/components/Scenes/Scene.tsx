@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useState } from "react";
 import Load from "../Load";
 import Room from "../../models/Room";
-import { Html, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import Button from "../Button";
 import Dialog from "../Dialog";
 
@@ -38,17 +38,6 @@ const Scene = () => {
     [isCooldown]
   );
 
-  const toggleOpenPokedex = useCallback(() => {
-    if (!isCooldown.current) {
-      setOpenPokedex((prevOpenPokedex) => !prevOpenPokedex);
-      isCooldown.current = true;
-
-      setTimeout(() => {
-        isCooldown.current = false;
-      }, 1000); // Set the cooldown duration in milliseconds
-    }
-  }, [isCooldown]);
-
   useEffect(() => {
     //  Look at the current option when it changes
     if (currentOption != null && typeof currentOption == "string") {
@@ -62,10 +51,15 @@ const Scene = () => {
           ? currentOptionInButtons[1].pos
           : cameraPosition;
 
+      if (currentOption == "pokedex") {
+        setOpenPokedex(true);
+      } else if (openPokedex == true) {
+        setOpenPokedex(false);
+      }
       playSound("/assets/sounds/btn.wav");
       lookAtControl(controlRef.current, target);
     }
-  }, [currentOption]);
+  }, [currentOption, openPokedex]);
 
   return (
     <span className="relative w-full h-screen">
@@ -80,7 +74,7 @@ const Scene = () => {
       )}
       <Menu
         currentOption={currentOption}
-        setCurrentOption={(value) => setCurrentOption(value)}
+        setCurrentOption={(value) => setOptionCD(value)}
       />
       <Canvas
         camera={{ near: 0.01, far: 1000, position: cameraPosition }}
@@ -118,7 +112,6 @@ const Scene = () => {
           <Pokedex
             opened={openPokedex}
             position={pokedexPosition}
-            onClick={() => toggleOpenPokedex()}
             rotation={[0, 0.2, 0]}
             scale={[2, 2, 2]}
           />

@@ -42,9 +42,11 @@ const Dialog = ({ currentOption, onPush }: IDialog) => {
           onClick={() => {
             playSound("/assets/sounds/btn.wav");
             if (onPush) {
-              setTimeout(onPush, 2000);
+              onPush();
+              setTimeout(() => {
+                router.push(route);
+              }, 2000);
             }
-            router.push(route);
           }}
           data-display={currentDialog + 1 == dialog.length && route.length > 0}
           className="group flex data-[display=false]:hidden cursor-pointer fadein h-fit w-fit ml-auto border-[3px] rounded-[14px] border-blue-400/70"
