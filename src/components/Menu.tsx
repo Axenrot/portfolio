@@ -38,7 +38,7 @@ const Popup = ({ currentOption, setCurrentOption }: IPopup) => {
   }
 
   return (
-    <div className="select-none items-center fadein transition-all duration-200 flex justify-between gap-3 left-1/2 -translate-x-1/2 p-2 w-[300px] fixed h-fit bg-white/10 z-10 rounded-full top-[3vh]">
+    <div className="select-none items-center font-firered text-2xl md:text-3xl fadein transition-all duration-200 flex justify-between gap-3 left-1/2 -translate-x-1/2 p-2 w-[300px] fixed h-fit bg-white/10 z-10 rounded-full top-[3vh]">
       <CaretLeft
         size={32}
         onClick={back}

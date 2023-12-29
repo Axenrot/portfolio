@@ -11,7 +11,7 @@ export default function Pokedex() {
   return (
     <main className="flex h-full min-h-screen flex-col items-center bg-white bg-[url('/assets/contact-bg2.png')] font-firered text-3xl text-neutral-700 justify-between">
       <span className="bg-blue-500 w-full h-16 flex justify-center items-center">
-        <span className="container text-lg sm:text-xl lg:text-3xl select-none px-3 flex w-full justify-between">
+        <span className="container text-2xl lg:text-3xl select-none px-3 flex w-full justify-between">
           <h1 className="text-white">
             <FireRedText>Get in touch with Leon</FireRedText>
           </h1>

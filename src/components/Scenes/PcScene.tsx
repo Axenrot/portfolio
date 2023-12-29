@@ -1,3 +1,4 @@
+"use client";
 import { Canvas, useThree, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Screen } from "@/models/Screen";
@@ -7,13 +8,19 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import ProjectsMenu from "@/components/ProjectsMenu";
 import ProjectsDialog from "../ProjectsDialog";
+import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 extend({ OrbitControls });
 
 const Controls = () => {
   const { camera, gl } = useThree();
+  const { width } = useWindowDimensions();
+  const cameraDistance = useRef<number>(width < 768 ? 15 : 12);
   const controlsRef = useRef<any>();
 
+  useEffect(() => {
+    cameraDistance.current = width < 768 ? 15 : 12;
+  }, [width]);
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       // Check if the left mouse button is pressed
@@ -48,8 +55,8 @@ const Controls = () => {
       ref={controlsRef}
       args={[camera, gl.domElement]}
       enablePan={false}
-      minDistance={10}
-      maxDistance={10}
+      minDistance={cameraDistance.current}
+      maxDistance={cameraDistance.current * 1.2}
       minAzimuthAngle={-0.3}
       maxAzimuthAngle={0.3}
       minPolarAngle={1}

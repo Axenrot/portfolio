@@ -13,12 +13,13 @@ import { useCallback, useRef } from "react";
 import { buttons, cameraPosition, pokedexPosition } from "@/utils/buttons";
 import { lookAtControl } from "@/utils/cameraMovement";
 import { playSound } from "@/utils/playSound";
+import Transition from "../Transition";
 
 const Scene = () => {
   const [currentOption, setCurrentOption] = useState<string | null>("home");
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
+  const displayScene = useRef<any>(true);
   const controlRef = useRef<any>();
-
   const isCooldown = useRef(false);
 
   const setOptionCD = useCallback(
@@ -37,17 +38,6 @@ const Scene = () => {
     [isCooldown]
   );
 
-  const toggleOpenPokedex = useCallback(() => {
-    if (!isCooldown.current) {
-      setOpenPokedex((prevOpenPokedex) => !prevOpenPokedex);
-      isCooldown.current = true;
-
-      setTimeout(() => {
-        isCooldown.current = false;
-      }, 1000); // Set the cooldown duration in milliseconds
-    }
-  }, [isCooldown]);
-
   useEffect(() => {
     //  Look at the current option when it changes
     if (currentOption != null && typeof currentOption == "string") {
@@ -61,19 +51,36 @@ const Scene = () => {
           ? currentOptionInButtons[1].pos
           : cameraPosition;
 
+      if (currentOption == "pokedex") {
+        setOpenPokedex(true);
+      } else if (openPokedex == true) {
+        setOpenPokedex(false);
+      }
       playSound("/assets/sounds/btn.wav");
       lookAtControl(controlRef.current, target);
     }
-  }, [currentOption]);
+  }, [currentOption, openPokedex]);
 
   return (
-    <span className="w-full h-screen">
-      {currentOption && <Dialog currentOption={currentOption} />}
+    <span className="relative w-full h-screen">
+      {!displayScene.current && <Transition />}
+      {currentOption && (
+        <Dialog
+          currentOption={currentOption}
+          onPush={() => {
+            displayScene.current = false;
+          }}
+        />
+      )}
       <Menu
         currentOption={currentOption}
-        setCurrentOption={(value) => setCurrentOption(value)}
+        setCurrentOption={(value) => setOptionCD(value)}
       />
-      <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
+      <Canvas
+        camera={{ near: 0.01, far: 1000, position: cameraPosition }}
+        data-display={displayScene.current}
+        className="data-[display=false]:opacity-0"
+      >
         <Suspense fallback={<Load />}>
           {Object.entries(buttons).map((btn) => {
             let text = btn[0];
@@ -96,7 +103,7 @@ const Scene = () => {
             enablePan={false}
             minAzimuthAngle={-1.2}
             maxAzimuthAngle={1.2}
-            maxDistance={3}
+            maxDistance={5}
             minPolarAngle={0.8}
             maxPolarAngle={1.4}
           />
@@ -105,7 +112,6 @@ const Scene = () => {
           <Pokedex
             opened={openPokedex}
             position={pokedexPosition}
-            onClick={() => toggleOpenPokedex()}
             rotation={[0, 0.2, 0]}
             scale={[2, 2, 2]}
           />

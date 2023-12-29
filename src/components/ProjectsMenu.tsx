@@ -40,7 +40,7 @@ const ProjectsMenu = ({ currentOption, setCurrentOption }: IProjectsMenu) => {
   }
 
   return (
-    <div className="select-none items-center fadein transition-all duration-200 flex justify-between gap-3 left-1/2 -translate-x-1/2 p-2 w-[300px] absolute h-fit bg-white/10 z-10 rounded-full top-0">
+    <div className="select-none items-center font-firered text-2xl md:text-3xl fadein transition-all duration-200 flex justify-between gap-3 left-1/2 -translate-x-1/2 p-2 w-[300px] absolute h-fit bg-white/10 z-10 rounded-full top-0">
       <CaretLeft
         size={32}
         onClick={back}

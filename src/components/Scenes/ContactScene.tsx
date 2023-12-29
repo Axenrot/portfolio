@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Bulbasaur from "@/models/Bulbasaur";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
+import { useEffect, useRef } from "react";
 
 interface IContactScene {
   formState: string;
@@ -10,14 +11,26 @@ interface IContactScene {
 
 const ContactScene = ({ formState }: IContactScene) => {
   const { width } = useWindowDimensions();
-  const componentWidth = width < 768 ? "200px" : "300px";
+  const size = useRef<number>(width < 768 ? 200 : 300);
+
+  useEffect(() => {
+    size.current = width < 768 ? 200 : 300;
+  }, [width]);
+
   return (
     <span
-      className={`w-[${Number(componentWidth) * 0.7}px] h-[${
-        Number(componentWidth) * 0.7
-      }] overflow-hidden`}
+      style={{
+        width: Number(size.current),
+        height: Number(size.current),
+      }}
+      className={`overflow-hidden flex items-center justify-center`}
     >
-      <div className={`w-[${componentWidth}] h-[${componentWidth}]`}>
+      <div
+        style={{
+          width: Number(size.current),
+          height: Number(size.current),
+        }}
+      >
         <Canvas>
           <ambientLight intensity={0.7} />
           <directionalLight intensity={2.5} />
@@ -33,7 +46,7 @@ const ContactScene = ({ formState }: IContactScene) => {
           <Bulbasaur
             formState={formState}
             scale={[500, 500, 500]}
-            position={[-0.5, -1, 0]}
+            position={[0, -1.2, 0]}
             rotation={[0, 0.7, 0]}
           />
         </Canvas>
