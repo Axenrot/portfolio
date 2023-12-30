@@ -34,7 +34,7 @@ const ProjectsDialog = ({ currentOption }: IProjectsDialog) => {
           CHECK IT OUT!
         </span>
       </span>
-      <span className="select-none h-[25vh] pointer-events-auto overflow-hidden flex flex-1 text-xl sm:text-2xl font-firered fadein transition-all duration-200 rounded-[14px] border-[3px] border-blue-400/70">
+      <span className="select-none h-[25vh] pointer-events-auto overflow-hidden flex flex-1 text-xl sm:text-3xl font-firered fadein transition-all duration-200 rounded-[14px] border-[3px] border-blue-400/70">
         <span className="gap-3 h-full p-1 flex flex-wrap flex-1 text-neutral-900 w-full bg-white/90 border-blue-200 border-[3px] rounded-xl">
           <span className="h-full w-full pointer-events-auto flex-1 flex flex-wrap gap-2 overflow-y-auto px-3 py-2">
             {description.split(" ").map((word, index) => (
