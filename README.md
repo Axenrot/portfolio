@@ -1,4 +1,4 @@
-# Pokémon-themed Portfolio Project 🚀
+# Leon's Portfolio Project 🦁
 
 Welcome to my Pokémon-themed portfolio project! Immerse yourself in the Pokémon world as you explore the main character's room. This project combines Three.js, React, Next.js, Tailwind CSS, R3F and GSAP to create a captivating experience. Navigate through the 3D room and discover three pages: "PC," "POKEDEX" and "CURRICULUM"
 
