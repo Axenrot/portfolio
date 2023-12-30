@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { projects } from "@/utils/projects";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { playSound } from "@/utils/playSound";
 
 interface IProjectsMenu {
   setCurrentOption: (value: string) => void;
@@ -8,13 +9,19 @@ interface IProjectsMenu {
 }
 const ProjectsMenu = ({ currentOption, setCurrentOption }: IProjectsMenu) => {
   const [selectedOption, setSelectedOption] = useState<number>(0);
+  const isInitialRender = useRef(true);
 
   useEffect(() => {
-    Object.keys(projects).forEach((key, index) => {
-      if (currentOption == key) {
-        setSelectedOption(index);
-      }
-    });
+    if (!isInitialRender.current) {
+      Object.keys(projects).forEach((key, index) => {
+        if (currentOption == key) {
+          setSelectedOption(index);
+        }
+      });
+      playSound("/assets/sounds/btn.wav");
+    } else {
+      isInitialRender.current = false;
+    }
   }, [currentOption]);
 
   function back() {

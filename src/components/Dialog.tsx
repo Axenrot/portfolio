@@ -12,7 +12,8 @@ interface IDialog {
 const Dialog = ({ currentOption, onPush }: IDialog) => {
   const router = useRouter();
   const [currentDialog, setCurrentDialog] = useState(0);
-  let { route, dialog } = dialogs[currentOption as keyof typeof dialogs];
+  let { route, dialog, button } =
+    dialogs[currentOption as keyof typeof dialogs];
 
   useEffect(() => {
     setCurrentDialog(0);
@@ -33,14 +34,14 @@ const Dialog = ({ currentOption, onPush }: IDialog) => {
       )}
       <span
         data-display={!!currentOption}
-        className="flex justify-end flex-col gap-2 data-[display=false]:hidden select-none text-2xl sm:text-3xl font-firered fadein transition-all duration-200 rounded-[14px] left-1/2 -translate-x-1/2 bottom-[3vh] w-[80vw] fixed h-[30vh] z-10"
+        className="flex pointer-events-none justify-end flex-col gap-2 data-[display=false]:hidden select-none text-2xl sm:text-3xl font-firered fadein transition-all duration-200 rounded-[14px] left-1/2 -translate-x-1/2 bottom-[3vh] w-[80vw] fixed h-[30vh] z-10"
       >
         <span
           onMouseEnter={() => {
             playSound("/assets/sounds/btn.wav");
           }}
           onClick={() => {
-            playSound("/assets/sounds/btn.wav");
+            playSound("/assets/sounds/select.wav");
             if (onPush) {
               onPush();
               setTimeout(() => {
@@ -49,9 +50,9 @@ const Dialog = ({ currentOption, onPush }: IDialog) => {
             }
           }}
           data-display={currentDialog + 1 == dialog.length && route.length > 0}
-          className="group flex data-[display=false]:hidden cursor-pointer fadein h-fit w-fit ml-auto border-[3px] rounded-[14px] border-blue-400/70"
+          className="group pointer-events-auto flex data-[display=false]:hidden cursor-pointer fadein h-fit w-fit ml-auto border-[3px] rounded-[14px] border-blue-400/70"
         >
-          <span className="relative flex items-center bg-white/90 border-blue-200 border-[3px] px-8 py-2 h-full w-full rounded-xl text-neutral-900 ">
+          <span className="relative flex items-center bg-white/90 uppercase border-blue-200 border-[3px] px-8 py-2 h-full w-full rounded-xl text-neutral-900 ">
             <span className="hidden group-hover:block -rotate-90 absolute left-3 mt-1">
               <Image
                 src="/assets/icons/arrow-down.png"
@@ -61,7 +62,7 @@ const Dialog = ({ currentOption, onPush }: IDialog) => {
                 alt=""
               />
             </span>
-            VISIT PAGE
+            {button}
           </span>
         </span>
 

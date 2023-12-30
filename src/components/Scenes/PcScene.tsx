@@ -56,7 +56,7 @@ const Controls = () => {
       args={[camera, gl.domElement]}
       enablePan={false}
       minDistance={cameraDistance.current}
-      maxDistance={cameraDistance.current * 1.2}
+      maxDistance={cameraDistance.current}
       minAzimuthAngle={-0.3}
       maxAzimuthAngle={0.3}
       minPolarAngle={1}
