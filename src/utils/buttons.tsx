@@ -28,7 +28,7 @@ export const buttons = {
     cameraPosition: new THREE.Vector3(0, 0, 0),
     pos: new THREE.Vector3(-0.55, 0.8, -1.3),
     icon: <BookOpen size={20} weight="fill" />,
-    name: language == "en" ? "Stack" : "Trabalhos",
+    name: language == "en" ? "Shelf" : "Trabalhos",
     fn: () => {},
   },
   home: {

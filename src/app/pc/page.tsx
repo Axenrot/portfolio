@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default function PC() {
   return (
-    <main className="flex h-full min-h-screen flex-col items-center bg-white bg-[url('/assets/contact-bg2.png')] font-firered text-3xl text-neutral-700 justify-between">
+    <main className="flex h-full min-h-screen flex-col items-center bg-white bg-[url('/assets/background.png')] font-firered text-3xl text-neutral-700 justify-between">
       <Transition direction="in" />
       <span className="bg-blue-500 w-full h-16 flex justify-center items-center">
         <span className="container select-none px-3 flex w-full justify-between">
