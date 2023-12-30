@@ -9,13 +9,14 @@ import { gsap } from "gsap";
 import ProjectsMenu from "@/components/ProjectsMenu";
 import ProjectsDialog from "../ProjectsDialog";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
+import { playSound } from "@/utils/playSound";
 
 extend({ OrbitControls });
 
 const Controls = () => {
   const { camera, gl } = useThree();
   const { width } = useWindowDimensions();
-  const cameraDistance = useRef<number>(width < 768 ? 15 : 12);
+  const cameraDistance = useRef<number>(width < 768 ? 18 : 12);
   const controlsRef = useRef<any>();
 
   useEffect(() => {
@@ -43,8 +44,10 @@ const Controls = () => {
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
@@ -74,7 +77,10 @@ const PcScene = ({ index = 1 }) => {
     <span className="relative h-[80vh] w-full flex flex-col">
       <ProjectsMenu
         currentOption={currentOption}
-        setCurrentOption={(value) => setCurrentOption(value)}
+        setCurrentOption={(value) => {
+          setCurrentOption(value);
+          playSound("/assets/sounds/btn.wav");
+        }}
       />
       {currentOption && <ProjectsDialog currentOption={currentOption} />}
       <Canvas camera={{ near: 0.01, far: 1000, position: cameraPosition }}>
