@@ -18,7 +18,7 @@ import Transition from "../Transition";
 const Scene = () => {
   const [currentOption, setCurrentOption] = useState<string | null>("home");
   const [openPokedex, setOpenPokedex] = useState<boolean>(false);
-  const displayScene = useRef<any>(true);
+  const [displayScene, setDisplayScene] = useState<boolean>(true);
   const controlRef = useRef<any>();
   const isCooldown = useRef(false);
 
@@ -26,7 +26,7 @@ const Scene = () => {
     (option: string) => {
       if (!isCooldown.current) {
         setCurrentOption(null);
-
+        playSound("/assets/sounds/btn.wav");
         setTimeout(() => setCurrentOption(option), 200);
         isCooldown.current = true;
 
@@ -56,19 +56,20 @@ const Scene = () => {
       } else if (openPokedex == true) {
         setOpenPokedex(false);
       }
-      playSound("/assets/sounds/btn.wav");
+
       lookAtControl(controlRef.current, target);
     }
   }, [currentOption, openPokedex]);
 
   return (
     <span className="relative w-full h-screen">
-      {!displayScene.current && <Transition />}
+      {!displayScene && <Transition direction="out" />}
+      <Transition direction="in" />
       {currentOption && (
         <Dialog
           currentOption={currentOption}
           onPush={() => {
-            displayScene.current = false;
+            setDisplayScene(false);
           }}
         />
       )}
@@ -78,13 +79,13 @@ const Scene = () => {
       />
       <Canvas
         camera={{ near: 0.01, far: 1000, position: cameraPosition }}
-        data-display={displayScene.current}
-        className="data-[display=false]:opacity-0"
+        data-display={displayScene}
+        className="data-[display=false]:opacity-0 transition-all duration-500 transition-out"
       >
         <Suspense fallback={<Load />}>
           {Object.entries(buttons).map((btn) => {
             let text = btn[0];
-            let { fn, pos, icon } = btn[1];
+            let { pos, icon } = btn[1];
 
             return (
               <Button
@@ -92,7 +93,9 @@ const Scene = () => {
                 placeholder={icon}
                 position={pos}
                 onClick={() => {
-                  setOptionCD(text);
+                  if (text != currentOption) {
+                    setOptionCD(text);
+                  }
                 }}
               />
             );

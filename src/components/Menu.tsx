@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { buttons } from "@/utils/buttons";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
-interface IPopup {
+interface IMenu {
   setCurrentOption: (value: string) => void;
   currentOption: string | null;
 }
-const Popup = ({ currentOption, setCurrentOption }: IPopup) => {
+const Menu = ({ currentOption, setCurrentOption }: IMenu) => {
   const [selectedOption, setSelectedOption] = useState<number>(0);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Popup = ({ currentOption, setCurrentOption }: IPopup) => {
   }
 
   return (
-    <div className="select-none items-center font-firered text-2xl md:text-3xl fadein transition-all duration-200 flex justify-between gap-3 left-1/2 -translate-x-1/2 p-2 w-[300px] fixed h-fit bg-white/10 z-10 rounded-full top-[3vh]">
+    <div className="select-none items-center font-firered text-2xl md:text-3xl fadein transition-all duration-200 flex justify-between gap-3 left-1/2 -translate-x-1/2 p-2 w-[300px] fixed h-[45px] bg-white/5 z-50 rounded-full top-[3vh]">
       <CaretLeft
         size={32}
         onClick={back}
@@ -68,4 +68,4 @@ const Popup = ({ currentOption, setCurrentOption }: IPopup) => {
   );
 };
 
-export default Popup;
+export default Menu;
