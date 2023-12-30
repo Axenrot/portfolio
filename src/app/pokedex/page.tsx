@@ -44,6 +44,46 @@ export default function Pokedex() {
         <ContactScene formState={formState} />
         <ContactForm setFormState={setFormState} />
       </div>
+      <span className="bg-gradient-to-b from-transparent to-[#fdf7d8] w-full h-16 flex justify-center items-center">
+        <span className="container text-2xl lg:text-3xl select-none px-3 flex w-full justify-end gap-6 items-center py-2">
+          <Link
+            onMouseEnter={() => {
+              playSound("/assets/sounds/btn.wav");
+            }}
+            onClick={() => {
+              playSound("/assets/sounds/select.wav");
+            }}
+            href={"https://www.linkedin.com/in/yurileon/"}
+            target="_blank"
+          >
+            <Image
+              src="/assets/icons/linkedin.png"
+              width={20}
+              height={20}
+              className="aspect-auto w-[30px] h-[30px] opacity-90 hover:opacity-100 transition-all duration-200 hover:scale-110"
+              alt=""
+            />
+          </Link>
+          <Link
+            onMouseEnter={() => {
+              playSound("/assets/sounds/btn.wav");
+            }}
+            onClick={() => {
+              playSound("/assets/sounds/select.wav");
+            }}
+            href={"https://discord.gg/7WKNGdYFJY"}
+            target="_blank"
+          >
+            <Image
+              src="/assets/icons/discord.png"
+              width={30}
+              height={30}
+              className="aspect-auto w-[35px] h-[35px] opacity-90 hover:opacity-100 transition-all duration-200 hover:scale-110"
+              alt=""
+            />
+          </Link>
+        </span>
+      </span>
     </main>
   );
 }
