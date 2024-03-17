@@ -45,7 +45,7 @@ export default function Curriculum() {
           </p>
           <Link
             className="bg-blue-400 flex items-center justify-center p-4 h-fit self-center mx-auto rounded-md border-2 border-blue-500"
-            href="https://drive.google.com/file/d/1GwtACGoqAakaXvPu4NSRgFQufbH7omEz/view?usp=sharing"
+            href="https://drive.google.com/file/d/1CZlxh8tNR0ASAsarKrItiQMoxjGBDbET/view?usp=sharing"
           >
             <FireRedText>Link to the PDF!</FireRedText>
           </Link>
